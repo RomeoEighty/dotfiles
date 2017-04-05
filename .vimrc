@@ -1,81 +1,67 @@
+if version >= 704
+    "dein Scripts-----------------------------
+    if &compatible
+        set nocompatible               " Be iMproved
+    endif
 
-silent exec 'language en_US'
-set spelllang=en_us
+    " Required: Multi Operating System Adaptability
+    set runtimepath^=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
+    call dein#begin(expand('$HOME/.vim/dein'))
 
-filetype off
-filetype plugin indent off
+    " Let dein manage dein
+    " Required:
+    call dein#add('Shougo/dein.vim')
 
-" =================================================
-"  vim-plug
-" =================================================
-" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
-call plug#begin('~/.vim/plugged')
+    " Add or remove your plugins here:
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('Shougo/neocomplete.vim')
+    call dein#add('Shougo/neoinclude.vim')
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+    call dein#add('cocopon/colorswatch.vim')
+    call dein#add('dyng/ctrlsf.vim')
+    call dein#add('itchyny/lightline.vim')
+    call dein#add('itchyny/vim-cursorword')
+    call dein#add('osyo-manga/vim-marching')
+    call dein#add('itchyny/vim-cursorword')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('scrooloose/syntastic')
+    call dein#add('sjl/gundo.vim')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('keith/swift.vim')
 
-" =================================================
-"  vim-plug install examples
-" =================================================
-"NOTE: Make sure you use single quotes
+    "colorschemes
+    call dein#add('nanotech/jellybeans.vim')
+    call dein#add('vim-scripts/darktango.vim')
+    call dein#add('w0ng/vim-hybrid')
+    call dein#add('sjl/badwolf')
+    call dein#add('vim-scripts/Wombat')
 
-"        " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-"        Plug 'junegunn/vim-easy-align'
-"        
-"        " Any valid git URL is allowed
-"        Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-"        
-"        " Multiple Plug commands can be written in a single line using | separators
-"        Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-"        
-"        " On-demand loading
-"        Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-"        Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-"        
-"        " Using a non-master branch
-"        Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-"        
-"        " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-"        Plug 'fatih/vim-go', { 'tag': '*' }
-"        
-"        " Plugin options
-"        Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-"        
-"        " Plugin outside ~/.vim/plugged with post-update hook
-"        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"        
-"        " Unmanaged plugin (manually installed and updated)
-"        Plug '~/my-prototype-plugin'
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'Shougo/deoplete.nvim', { 'commit': 'd247740fe68d256f9c5fa6cab35dba1a93c1c3bb', 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/vimproc.vim', { 'do': 'make'}
-Plug 'cocopon/colorswatch.vim'
-Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
-Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-cursorword'
-Plug 'osyo-manga/vim-marching'
-Plug 'itchyny/vim-cursorword'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
-Plug 'sjl/gundo.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
-Plug 'keith/swift.vim', { 'for': 'swift' }
+    "unused plugin
+    "call dein#add('Rip-Rip/clang_complete')
+    "call dein#add('justmao945/vim-clang')
 
-" Colorschemes
-Plug 'nanotech/jellybeans.vim'
-Plug 'vim-scripts/darktango.vim'
-Plug 'w0ng/vim-hybrid'
-Plug 'sjl/badwolf'
-Plug 'vim-scripts/Wombat'
+    " You can specify revision/branch/tag.
+"   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
-" Initialize plugin system
-call plug#end()
+    " Required:
+    call dein#end()
 
-" =================================================
-"  base setting
-" =================================================
+    " Required:
+    filetype plugin indent on
+
+    " If you want to install not installed plugins on startup.
+    if dein#check_install()
+        call dein#install()
+    endif
+
+    "End dein Scripts-------------------------
+endif
+
+"-------------------------------------------------
+"base setting
+"-------------------------------------------------
 set nocompatible
 syntax on
 if has('gui_macvim')
@@ -87,9 +73,9 @@ if (v:version >= 704 && !has('nvim'))
     set cryptmethod=blowfish2
 endif
 
-" =================================================
-"  display
-" =================================================
+"-------------------------------------------------
+" display
+"-------------------------------------------------
 set number
 if v:version >= 703
     set relativenumber " This option may affect performance!
@@ -107,7 +93,7 @@ set showcmd
 " 折り返しをする
 set wrap
 " 折り返しの時のインデント
-if version >= 800
+if v:version >= 800
     set breakindent
 endif
 " 長い行の表示
@@ -116,9 +102,9 @@ set display=lastline
 set pumheight=10
 set guifont=SF\ Mono\ for\ Powerline
 
-" =================================================
-"  edit
-" =================================================
+"-------------------------------------------------
+" edit
+"-------------------------------------------------
 set list
 set listchars=tab:>\ ,eol:$
 set tabstop=4
@@ -134,9 +120,7 @@ if _curfile == 'Makefile'
 endif
 
 set shiftwidth=4
-if !has('nvim')
-    set ttymouse=xterm2
-endif
+set ttymouse=xterm2
 " showmatch time 0.1*x(default 5)
 set matchtime=1
 set mouse=n
@@ -162,50 +146,35 @@ if has('mac')
     let g:python_host_prog = expand('/usr/local/bin/python2')
     let g:python3_host_prog = expand('/usr/local/bin/python3')
 endif
-" =================================================
-"  .swp setting
-" =================================================
+"--------------
+" .swp setting
+"-------------
 augroup swapchoice-readonly
     autocmd!
     autocmd SwapExists * let v:swapchoice = 'o'
 augroup END
 
-" =================================================
-"  search
-" =================================================
+"-------------------------------------------------
+" search
+"-------------------------------------------------
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 set wildignorecase
 
-" =================================================
-"  keymapping
-" =================================================
+"-------------------------------------------------
+" keymapping
+"-------------------------------------------------
 nnoremap j gj
 nnoremap k gk
 nnoremap <Down> gj
 nnoremap <Up> gk
 nnoremap <ESC><ESC> :noh<CR>
 
-" =================================================
-"  Remember where the cursor was
-" =================================================
-if has("autocmd")
-    augroup redhat
-        " In text files, always limit the width of text to 78 characters
-        " autocmd BufRead *.txt set tw=78
-        " When editing a file, always jump to the last cursor position
-        autocmd BufReadPost *
-        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-        \   exe "normal! g'\"" |
-        \ endif
-    augroup END
-endif
-
-" =================================================
-"  lightline
-" =================================================
+"-------------------------------------------------
+" leghtline
+"-------------------------------------------------
 if version >= 704
     let g:lightline = {
           \ 'colorscheme'       : 'wombat',
@@ -310,71 +279,6 @@ if version >= 704
         return winwidth(0) > (10 + strlen(_fname)) ? &filetype : ''
     endfunction
 endif
-
-" =================================================
-"  Shougo/deoplete.nvim
-" =================================================
-"set completeopt+=noinsert
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 0
-let g:deoplete#auto_complete_delay = 30
-"let g:deoplete#enable_refresh_always = 1
-let g:deoplete#sources     = {}
-let g:deoplete#sources._   = ['buffer']
-let g:deoplete#sources.cpp = ['buffer', 'tag', 'file']
-"let g:deoplete#omni_patterns       = {}
-"let g:deoplete#omni_patterns.cpp   = ['[^. *\t]\.\w*','[^. *\t]\::\w*','[^. *\t]\->\w*','#include\s*[<"][^>"]*']
-"let g:deoplete#omni#input_patterns      = {}
-"let g:deoplete#omni#input_patterns.html = '<[^>]*'
-"let g:deoplete#omni#input_patterns.xml  = '<[^>]*'
-"let g:deoplete#omni#input_patterns.md   = '<[^>]*'
-"let g:deoplete#omni#input_patterns.css  = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-"let g:deoplete#omni#input_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-"let g:deoplete#omni#input_patterns.sass = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-"let g:deoplete#omni#input_patterns.c    = ['[^.[:digit:] *\t]\%(\.\|->\)\w*','#include\s*[<"][^>"]*']
-"let g:deoplete#omni#input_patterns.cpp  = ['[^. *\t]\.\w*','[^. *\t]\::\w*','[^. *\t]\->\w*']
-"let g:deoplete#omni#input_patterns.cpp  = ['[^. *\t]\.\w*','[^. *\t]\::\w*','[^. *\t]\->\w*','#include\s*[<"][^>"]*']
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" -------------------------------------------------
-"  tweekmonster/deoplete-clang2
-" -------------------------------------------------
-let g:deoplete#sources = {}
-let g:deoplete#sources#clang#executable='/usr/bin/clang'
-let g:deoplete#sources#clang#flags=['-darwin=10.12']
-"let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-"let g:deoplete#sources#clang#clang_header='/Library/Developer/CommandLineTools/usr/lib/clang'
-
-" =================================================
-"  Shougo/neoinclude.vim
-" =================================================
-"if !exists('g:neocomplete#force_omni_input_patterns')
-"    let g:neocomplete#force_omni_input_patterns = {}
-"endif
-"let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-"let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-"set path+=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
-let g:neoinclude#ctags_command="/usr/local/bin/ctags"
-"if has('mac')
-    let g:neoinclude#paths = {
-        \ 'c'   : '.,./lib,./lib/STM32F10x_StdPeriph_Driver/inc,./lib/CMSIS/CM3/CoreSupport,./lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x,./inc,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include',
-        \ 'cpp' : '.,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1',
-    \ }
-"endif
-let g:neoinclude#patterns = {
-        \ 'cpp' : '^\s*#\s*include'
-    \ }
-if !exists('g:neoinclude#exts')
-    let g:neoinclude#exts = {}
-endif
-let g:neoinclude#exts.c   = ['h']
-let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
-"let $CPP_STDLIB = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1'
-"augroup vimrc-set_filetype_cpp
-"    autocmd!
-"    "$CPP_STDLIBよりも下の階層のファイルが開かれて
-"    "filetypeが設定されていない場合にfiletype=cppを設定する
-"    autocmd BufReadPost $CPP_STDLIB/* if empty(&filetype) | set filetype=cpp | endif
-"augroup END
 
 "-------------------------------------------------
 " denite.nvim
@@ -489,6 +393,101 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 "-------------------------------------------------
+" neocomplete.vim
+"-------------------------------------------------
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop. neocomplete conflicts with AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#max_list = 20
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+"let g:neocomplete#sources#dictionary#dictionaries = {
+"    \ 'default' : '',
+"    \ 'scheme'  : $HOME.'/.gosh_completions'
+"    \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c   = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+" for c and c++
+"if !exists('g:neocomplete#force_omni_input_patterns')
+"    let g:neocomplete#force_omni_input_patterns = {}
+"endif
+" let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+"let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+"  "-------------------------------------------------
+"  " For vim-clang "
+"  "-------------------------------------------------
+"  " disable auto completion after ->, ., :: for vim-clang
+"  let g:clang_auto = 0
+"  
+"  " default 'longest' can not work with neocomplete
+"  let g:clang_c_completeopt   = 'menuone'
+"  let g:clang_cpp_completeopt = 'menuone'
+"  
+"  let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+
+"-------------------------------------------------
 " For neosnippet "
 "-------------------------------------------------
 " Plugin key-mappings.
@@ -519,7 +518,6 @@ if version >= 704
 
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_auto_loc_list = 1
-    let g:syntastic_cpp_compiler_options = ' -std=c++11'
     let g:syntastic_check_on_open = 1
     let g:syntastic_check_on_wq = 0
 endif
@@ -540,9 +538,55 @@ if version >= 704
     endfunction
 endif
 
-" =================================================
-"  For marching.vim "
-" =================================================
+"-------------------------------------------------
+" For neoinclude "
+"-------------------------------------------------
+"if !exists('g:neocomplete#force_omni_input_patterns')
+"    let g:neocomplete#force_omni_input_patterns = {}
+"endif
+"let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+"let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+setlocal path+=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1
+let g:neoinclude#ctags_command=""
+"if has('mac')
+    let g:neoinclude#paths = {
+        \ 'c'   : '.,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include',
+        \ 'cpp' : '.,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1',
+    \ }
+"endif
+let g:neoinclude#patterns = {
+        \ 'cpp' : '^\s*#\s*include'
+    \ }
+if !exists('g:neoinclude#exts')
+    let g:neoinclude#exts = {}
+endif
+let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
+let $CPP_STDLIB = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1'
+augroup vimrc-set_filetype_cpp
+    autocmd!
+    "$CPP_STDLIBよりも下の階層のファイルが開かれて
+    "filetypeが設定されていない場合にfiletype=cppを設定する
+    autocmd BufReadPost $CPP_STDLIB/* if empty(&filetype) | set filetype=cpp | endif
+augroup END
+
+"-------------------------------------------------
+" Remember where the cursor was
+"-------------------------------------------------
+if has("autocmd")
+    augroup redhat
+        " In text files, always limit the width of text to 78 characters
+        " autocmd BufRead *.txt set tw=78
+        " When editing a file, always jump to the last cursor position
+        autocmd BufReadPost *
+        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+        \   exe "normal! g'\"" |
+        \ endif
+    augroup END
+endif
+
+"-------------------------------------------------
+" For marching.vim "
+"-------------------------------------------------
 " path to clang command
 let g:marching_clang_command = "/usr/bin/clang++"
 let g:marching_clang_command_option = "-std=c++11 -Wall -Wextra -Wconversion"
@@ -563,5 +607,3 @@ endif
 
 let g:neocomplete#force_omni_input_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-
-filetype plugin indent on

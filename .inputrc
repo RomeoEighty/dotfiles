@@ -1,0 +1,24 @@
+# -------------------
+# readline
+# -------------------
+set colored-stats on
+# 補完候補をLS_COLORSで色分け
+# set completion-display-width (default-1) # 補完候補を出力する時の横幅指定。-1で画面の横幅
+set completion-ignore-case on
+# 大文字小文字の区別なく補完
+set completion-map-case on
+# -と_の区別なく補完
+# set completion-prefix-display-length (default0) # 補完する時に表示される共通部分の長さ
+set completion-query-items 50
+# 補完時に警告を出す補完候補の閾値
+# set disable-completion
+set expand-tilde off
+# ~が入力された時HOMEのパスに置換
+set mark-directories on
+# ディレクトリ補完時に/を自動付加
+set mark-symlinked-directories on
+# シンボリックリンクの場合も自動で/付加
+set match-hidden-files on 
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set visible-stats on

@@ -2,9 +2,6 @@
 silent exec 'language en_US'
 set spelllang=en_us
 
-filetype off
-filetype plugin indent off
-
 " =================================================
 "  vim-plug
 " =================================================
@@ -15,54 +12,31 @@ call plug#begin('~/.vim/plugged')
 "  vim-plug install examples
 " =================================================
 "NOTE: Make sure you use single quotes
-
-"        " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-"        Plug 'junegunn/vim-easy-align'
-"        
-"        " Any valid git URL is allowed
-"        Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-"        
-"        " Multiple Plug commands can be written in a single line using | separators
-"        Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-"        
-"        " On-demand loading
-"        Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-"        Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-"        
-"        " Using a non-master branch
-"        Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-"        
-"        " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-"        Plug 'fatih/vim-go', { 'tag': '*' }
-"        
-"        " Plugin options
-"        Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-"        
-"        " Plugin outside ~/.vim/plugged with post-update hook
-"        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"        
-"        " Unmanaged plugin (manually installed and updated)
-"        Plug '~/my-prototype-plugin'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'Shougo/deoplete.nvim', { 'commit': 'd247740fe68d256f9c5fa6cab35dba1a93c1c3bb', 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    \ | Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
+    \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'cocopon/colorswatch.vim'
 Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-cursorword'
-Plug 'osyo-manga/vim-marching'
 Plug 'itchyny/vim-cursorword'
+Plug 'kana/vim-operator-user'
+    \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
+Plug 'lervag/vimtex', { 'for': ['tex'] }
+Plug 'osyo-manga/vim-marching'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 Plug 'keith/swift.vim', { 'for': 'swift' }
 
+Plug 'severin-lemaignan/vim-minimap'
 " Colorschemes
 Plug 'nanotech/jellybeans.vim'
 Plug 'vim-scripts/darktango.vim'
@@ -101,6 +75,7 @@ set fileencoding=utf-8
 set encoding=utf-8
 scriptencoding utf-8
 set fileformats=unix,dos,mac
+set foldmethod=marker
 set splitright
 set splitbelow
 set showcmd
@@ -206,6 +181,7 @@ endif
 " =================================================
 "  lightline
 " =================================================
+" {{{
 if version >= 704
     let g:lightline = {
           \ 'colorscheme'       : 'wombat',
@@ -310,10 +286,12 @@ if version >= 704
         return winwidth(0) > (10 + strlen(_fname)) ? &filetype : ''
     endfunction
 endif
+" }}}
 
 " =================================================
 "  Shougo/deoplete.nvim
 " =================================================
+" {{{
 "set completeopt+=noinsert
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 0
@@ -334,7 +312,17 @@ let g:deoplete#sources.cpp = ['buffer', 'tag', 'file']
 "let g:deoplete#omni#input_patterns.c    = ['[^.[:digit:] *\t]\%(\.\|->\)\w*','#include\s*[<"][^>"]*']
 "let g:deoplete#omni#input_patterns.cpp  = ['[^. *\t]\.\w*','[^. *\t]\::\w*','[^. *\t]\->\w*']
 "let g:deoplete#omni#input_patterns.cpp  = ['[^. *\t]\.\w*','[^. *\t]\::\w*','[^. *\t]\->\w*','#include\s*[<"][^>"]*']
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.tex =
+            \   '\\(?:'
+            \  .   '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+            \  .  '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
+            \  .  '|hyperref\s*\[[^]]*'
+            \  .  '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+            \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
+            \  .')'
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" }}}
 " -------------------------------------------------
 "  tweekmonster/deoplete-clang2
 " -------------------------------------------------
@@ -343,6 +331,32 @@ let g:deoplete#sources#clang#executable='/usr/bin/clang'
 let g:deoplete#sources#clang#flags=['-darwin=10.12']
 "let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 "let g:deoplete#sources#clang#clang_header='/Library/Developer/CommandLineTools/usr/lib/clang'
+
+" =================================================
+"  lervag/vimtex
+" =================================================
+" {{{
+"let g:vimtex_view_general_viewer = 'open'
+let g:vimtex_enabled = 1
+let g:vimtex_compiler_enabled = 1
+let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
+let g:vimtex_compiler_latexmk = {
+    \ 'background' : 1,
+    \ 'build_dir'  : '',
+    \ 'callback'   : 1,
+    \ 'continuous' : 1,
+    \ 'options'    : [
+    \      '-pdfdvi',
+    \      '-latex=platex',
+    \      '-verbose',
+    \      '-interaction=nonstopmode',
+    \      '-synctex=1',
+    \      '-file-line-error',
+    \   ],
+    \ }
+let g:vimtex_complete_enabled = 1
+" }}}
 
 " =================================================
 "  Shougo/neoinclude.vim
@@ -366,8 +380,9 @@ let g:neoinclude#patterns = {
 if !exists('g:neoinclude#exts')
     let g:neoinclude#exts = {}
 endif
-let g:neoinclude#exts.c   = ['h']
-let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
+let g:neoinclude#exts.c    = ['h']
+let g:neoinclude#exts.cpp  = ['', 'h', 'hpp', 'hxx']
+let g:neoinclude#exts.objc = ['', 'h', 'hpp', 'hxx']
 "let $CPP_STDLIB = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1'
 "augroup vimrc-set_filetype_cpp
 "    autocmd!
@@ -375,10 +390,12 @@ let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
 "    "filetypeが設定されていない場合にfiletype=cppを設定する
 "    autocmd BufReadPost $CPP_STDLIB/* if empty(&filetype) | set filetype=cpp | endif
 "augroup END
+" }}}
 
 "-------------------------------------------------
 " denite.nvim
 "-------------------------------------------------
+" {{{
 " Change file_rec command.
 call denite#custom#var('file_rec', 'command',
 \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
@@ -488,6 +505,8 @@ call denite#custom#option('default', 'prompt', '>')
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+" }}}
+
 "-------------------------------------------------
 " For neosnippet "
 "-------------------------------------------------
@@ -563,5 +582,3 @@ endif
 
 let g:neocomplete#force_omni_input_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-
-filetype plugin indent on

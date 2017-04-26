@@ -172,6 +172,7 @@ HELPDIR=/usr/local/share/zsh/help
 # zsh alias
 # --------------------------------------
 # --------------------------------------
+disable r
 alias help='run-help'
 alias vizenv='vim ~/.zshenv; echo -en "\nrebooting zsh\n"; exec zsh -l'
 alias vizrc='vim ~/.zshrc; echo -en "\nrebooting zsh\n"; exec zsh -l'

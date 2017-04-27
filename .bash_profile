@@ -21,6 +21,9 @@ else
     export PS1="\n${dark_grey}\#${green} \u [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
 fi
 
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+
 export TERM=xterm-256color
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$PATH:$HOME/.robotech/bin:$HOME/bin"

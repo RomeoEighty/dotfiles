@@ -37,6 +37,7 @@ Plug 'keith/swift.vim', { 'for': 'swift' }
 
 Plug 'severin-lemaignan/vim-minimap'
 " Colorscheme
+" note: make sure install appropriate nord theme to your terminal beforehand
 Plug 'arcticicestudio/nord-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'vim-scripts/darktango.vim'

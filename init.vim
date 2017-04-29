@@ -5,12 +5,10 @@ set spelllang=en_us
 " =================================================
 "  vim-plug
 " =================================================
+" {{{
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
-" =================================================
-"  vim-plug install examples
-" =================================================
 "NOTE: Make sure you use single quotes
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'Shougo/deoplete.nvim', { 'commit': 'd247740fe68d256f9c5fa6cab35dba1a93c1c3bb', 'do': ':UpdateRemotePlugins' }
@@ -33,37 +31,45 @@ Plug 'osyo-manga/vim-marching'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
+Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
 Plug 'tpope/vim-fugitive'
 Plug 'keith/swift.vim', { 'for': 'swift' }
 
 Plug 'severin-lemaignan/vim-minimap'
-" Colorschemes
+" Colorscheme
+Plug 'arcticicestudio/nord-vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'vim-scripts/darktango.vim'
 Plug 'w0ng/vim-hybrid'
 Plug 'sjl/badwolf'
 Plug 'vim-scripts/Wombat'
+Plug 'zaki/zazen'
 
 " Initialize plugin system
 call plug#end()
+" }}}
 
 " =================================================
 "  base setting
 " =================================================
+" {{{
 set nocompatible
 syntax on
 if has('gui_macvim')
     colorscheme darktango
 else
-    colorscheme jellybeans
+    "colorscheme jellybeans
+    colorscheme nord
 endif
 if (v:version >= 704 && !has('nvim'))
     set cryptmethod=blowfish2
 endif
+" }}}
 
 " =================================================
 "  display
 " =================================================
+" {{{
 set number
 if v:version >= 703
     set relativenumber " This option may affect performance!
@@ -90,10 +96,12 @@ set display=lastline
 " 補完候補の数
 set pumheight=10
 set guifont=SF\ Mono\ for\ Powerline
+" }}}
 
 " =================================================
 "  edit
 " =================================================
+" {{{
 set list
 set listchars=tab:>\ ,eol:$
 set tabstop=4
@@ -102,6 +110,7 @@ set autoindent
 set clipboard+=unnamed
 set expandtab
 set smarttab
+set conceallevel=0
 
 let _curfile=expand("%:r")
 if _curfile == 'Makefile'
@@ -137,6 +146,8 @@ if has('mac')
     let g:python_host_prog = expand('/usr/local/bin/python2')
     let g:python3_host_prog = expand('/usr/local/bin/python3')
 endif
+" }}}
+
 " =================================================
 "  .swp setting
 " =================================================
@@ -166,6 +177,7 @@ nnoremap <ESC><ESC> :noh<CR>
 " =================================================
 "  Remember where the cursor was
 " =================================================
+" {{{
 if has("autocmd")
     augroup redhat
         " In text files, always limit the width of text to 78 characters
@@ -177,6 +189,7 @@ if has("autocmd")
         \ endif
     augroup END
 endif
+" }}}
 
 " =================================================
 "  lightline
@@ -184,7 +197,7 @@ endif
 " {{{
 if version >= 704
     let g:lightline = {
-          \ 'colorscheme'       : 'wombat',
+          \ 'colorscheme'       : 'nord',
           \ 'active'            : {
           \     'left'              :  [ [ 'mvim', 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -322,15 +335,17 @@ let g:deoplete#omni#input_patterns.tex =
             \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
             \  .')'
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" }}}
 " -------------------------------------------------
 "  tweekmonster/deoplete-clang2
 " -------------------------------------------------
+" {{{
 let g:deoplete#sources = {}
 let g:deoplete#sources#clang#executable='/usr/bin/clang'
 let g:deoplete#sources#clang#flags=['-darwin=10.12']
 "let g:deoplete#sources#clang#libclang_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 "let g:deoplete#sources#clang#clang_header='/Library/Developer/CommandLineTools/usr/lib/clang'
+" }}}
+" }}}
 
 " =================================================
 "  lervag/vimtex
@@ -348,7 +363,6 @@ let g:vimtex_compiler_latexmk = {
     \ 'continuous' : 1,
     \ 'options'    : [
     \      '-pdfdvi',
-    \      '-latex=platex',
     \      '-verbose',
     \      '-interaction=nonstopmode',
     \      '-synctex=1',
@@ -361,6 +375,7 @@ let g:vimtex_complete_enabled = 1
 " =================================================
 "  Shougo/neoinclude.vim
 " =================================================
+" {{{
 "if !exists('g:neocomplete#force_omni_input_patterns')
 "    let g:neocomplete#force_omni_input_patterns = {}
 "endif
@@ -392,9 +407,9 @@ let g:neoinclude#exts.objc = ['', 'h', 'hpp', 'hxx']
 "augroup END
 " }}}
 
-"-------------------------------------------------
-" denite.nvim
-"-------------------------------------------------
+" =================================================
+"  Shougo/denite.nvim
+" =================================================
 " {{{
 " Change file_rec command.
 call denite#custom#var('file_rec', 'command',
@@ -507,9 +522,10 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 " }}}
 
-"-------------------------------------------------
-" For neosnippet "
-"-------------------------------------------------
+" =================================================
+"  Shougo/neosnippet.vim
+" =================================================
+" {{{
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -523,14 +539,16 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
  
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
+" " For snippet_complete marker.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=i
+" endif
+" }}}
 
-"-------------------------------------------------
-" For syntastic "
-"-------------------------------------------------
+" =================================================
+"  scrooloose/syntastic
+" =================================================
+" {{{
 if version >= 704
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
@@ -558,10 +576,12 @@ if version >= 704
     call lightline#update()
     endfunction
 endif
+" }}}
 
 " =================================================
 "  For marching.vim "
 " =================================================
+" {{{
 " path to clang command
 let g:marching_clang_command = "/usr/bin/clang++"
 let g:marching_clang_command_option = "-std=c++11 -Wall -Wextra -Wconversion"
@@ -582,3 +602,4 @@ endif
 
 let g:neocomplete#force_omni_input_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+" }}}

@@ -32,11 +32,13 @@ if version >= 704
     call dein#add('keith/swift.vim')
 
     "colorschemes
+    call dein#add('arcticicestudio/nord-vim')
     call dein#add('nanotech/jellybeans.vim')
     call dein#add('vim-scripts/darktango.vim')
     call dein#add('w0ng/vim-hybrid')
     call dein#add('sjl/badwolf')
     call dein#add('vim-scripts/Wombat')
+    call dein#add('zaki/zazen')
 
     "unused plugin
     "call dein#add('Rip-Rip/clang_complete')
@@ -67,7 +69,8 @@ syntax on
 if has('gui_macvim')
     colorscheme darktango
 else
-    colorscheme jellybeans
+    "colorscheme jellybeans
+    colorscheme nord
 endif
 if (v:version >= 704 && !has('nvim'))
     set cryptmethod=blowfish2
@@ -177,7 +180,7 @@ nnoremap <ESC><ESC> :noh<CR>
 "-------------------------------------------------
 if version >= 704
     let g:lightline = {
-          \ 'colorscheme'       : 'wombat',
+          \ 'colorscheme'       : 'nord',
           \ 'active'            : {
           \     'left'              :  [ [ 'mvim', 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],

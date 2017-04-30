@@ -96,7 +96,7 @@ set showcmd
 " 折り返しをする
 set wrap
 " 折り返しの時のインデント
-if v:version >= 800
+if exists('+breakindent')
     set breakindent
 endif
 " 長い行の表示

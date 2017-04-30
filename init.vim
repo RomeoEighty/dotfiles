@@ -32,6 +32,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'keith/swift.vim', { 'for': 'swift' }
 
@@ -73,7 +74,7 @@ endif
 " {{{
 set number
 if v:version >= 703
-    set relativenumber " This option may affect performance!
+    set norelativenumber " This option may affect performance!
 endif
 set ruler
 set laststatus=2
@@ -89,7 +90,7 @@ set showcmd
 " 折り返しをする
 set wrap
 " 折り返しの時のインデント
-if version >= 800
+if exists('+breakindent')
     set breakindent
 endif
 " 長い行の表示
@@ -237,14 +238,13 @@ if version >= 704
     function! LightLineMode()
         return  &ft == 'unite' ? 'Unite' :
               \ &ft == 'vimfiler' ? 'VimFiler' :
-              \ &ft == 'vimshell' ? 'VimShell' :
               \ winwidth(0) > 60 ? lightline#mode() : ''
     endfunction
 
     function! LightLineFugitive()
         if exists("*fugitive#head")
             let _ = fugitive#head()
-            let _fname = expand("%")
+            let _fname = expand("%:t")
             if winwidth(0) > (strlen(_fname) + 25)
                 return strlen(_) ? "\ue0a0"._ : ''
             else
@@ -277,7 +277,7 @@ if version >= 704
     endfunction
 
     function! LightLineLineinfo()
-        let _fname = expand("%")
+        let _fname = expand("%:t")
         if winwidth(0) > 20 + strlen(_fname)
             return "\ue0a1 ". line('.'). '/'. line('$'). ':'. col('.'). '/'. col('$')
         else
@@ -286,17 +286,17 @@ if version >= 704
     endfunction
 
     function! LightLineFileformat()
-        let _fname = expand("%")
+        let _fname = expand("%:t")
         return winwidth(0) > (10 + strlen(_fname)) ? &ff : ''
     endfunction
 
     function! LightLineFileencoding()
-        let _fname = expand("%")
+        let _fname = expand("%:t")
         return winwidth(0) > (10 + strlen(_fname)) ? &fenc : ''
     endfunction
 
     function! LightLineFiletype()
-        let _fname = expand("%")
+        let _fname = expand("%:t")
         return winwidth(0) > (10 + strlen(_fname)) ? &filetype : ''
     endfunction
 endif

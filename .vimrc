@@ -114,6 +114,7 @@ set tabstop=4
 set cinoptions+=:0,g0
 set autoindent
 set clipboard+=unnamed
+set clipboard=exclude:.*
 set expandtab
 set smarttab
 

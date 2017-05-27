@@ -23,18 +23,18 @@ Plug 'cocopon/colorswatch.vim'
 Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-cursorword'
-Plug 'itchyny/vim-cursorword'
 Plug 'kana/vim-operator-user'
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 Plug 'osyo-manga/vim-marching'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'keith/swift.vim', { 'for': 'swift' }
+Plug 'w0rp/ale'
 
 Plug 'severin-lemaignan/vim-minimap'
 " Colorscheme

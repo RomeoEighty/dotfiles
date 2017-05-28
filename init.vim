@@ -278,7 +278,7 @@ if version >= 704
 
     function! LightLineLineinfo()
         let _fname = expand("%:t")
-        if winwidth(0) > 20 + strlen(_fname)
+        if winwidth(0) > 80 + strlen(_fname)
             return "\ue0a1 ". line('.'). '/'. line('$'). ':'. col('.'). '/'. col('$')
         else
             return "\ue0a1 ". line('.'). ':'. col('.')
@@ -287,17 +287,17 @@ if version >= 704
 
     function! LightLineFileformat()
         let _fname = expand("%:t")
-        return winwidth(0) > (10 + strlen(_fname)) ? &ff : ''
+        return winwidth(0) > (70 + strlen(_fname)) ? &ff : ''
     endfunction
 
     function! LightLineFileencoding()
         let _fname = expand("%:t")
-        return winwidth(0) > (10 + strlen(_fname)) ? &fenc : ''
+        return winwidth(0) > (70 + strlen(_fname)) ? &fenc : ''
     endfunction
 
     function! LightLineFiletype()
         let _fname = expand("%:t")
-        return winwidth(0) > (10 + strlen(_fname)) ? &filetype : ''
+        return winwidth(0) > (70 + strlen(_fname)) ? &filetype : ''
     endfunction
 endif
 " }}}

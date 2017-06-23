@@ -1,6 +1,8 @@
 
-silent exec 'language en_US'
-set spelllang=en_us
+if has('mac')
+    silent exec 'language en_US'
+    set spelllang=en_us
+endif
 
 " =================================================
 "  vim-plug

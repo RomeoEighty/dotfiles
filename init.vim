@@ -1,6 +1,8 @@
 
-silent exec 'language en_US'
-set spelllang=en_us
+if has('mac')
+    silent exec 'language en_US'
+    set spelllang=en_us
+endif
 
 " =================================================
 "  vim-plug
@@ -147,6 +149,9 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 if has('mac')
     let g:python_host_prog = expand('/usr/local/bin/python2')
     let g:python3_host_prog = expand('/usr/local/bin/python3')
+elseif has('unix')
+    let g:python_host_prog = expand('/usr/bin/python2')
+    let g:python3_host_prog = expand('/usr/bin/python3')
 endif
 " }}}
 

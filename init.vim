@@ -27,7 +27,8 @@ Plug 'kana/vim-operator-user'
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 Plug 'osyo-manga/vim-marching'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 " Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
@@ -147,6 +148,9 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 if has('mac')
     let g:python_host_prog = expand('/usr/local/bin/python2')
     let g:python3_host_prog = expand('/usr/local/bin/python3')
+elseif has('unix')
+    let g:python_host_prog = expand('/usr/bin/python2')
+    let g:python3_host_prog = expand('/usr/bin/python3')
 endif
 " }}}
 
@@ -355,7 +359,12 @@ let g:deoplete#sources#clang#flags=['-darwin=10.12']
 "let g:vimtex_view_general_viewer = 'open'
 let g:vimtex_enabled = 1
 let g:vimtex_compiler_enabled = 1
-let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+if has('mac')
+    let g:vimtex_view_method = 'skim'
+    let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+elseif has('unix')
+    let g:vimtex_view_method = 'zathura'
+endif
 let g:vimtex_view_general_options = '-r @line @pdf @tex'
 let g:vimtex_compiler_latexmk = {
     \ 'background' : 1,
@@ -391,7 +400,8 @@ let g:neoinclude#ctags_command="/usr/local/bin/ctags"
     \ }
 "endif
 let g:neoinclude#patterns = {
-        \ 'cpp' : '^\s*#\s*include'
+        \ 'c'   : '^\s*#\s*include\s',
+        \ 'cpp' : '^\s*#\s*include\s',
     \ }
 if !exists('g:neoinclude#exts')
     let g:neoinclude#exts = {}

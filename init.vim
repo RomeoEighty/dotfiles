@@ -36,6 +36,7 @@ Plug 'sjl/gundo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'keith/swift.vim', { 'for': 'swift' }
 Plug 'w0rp/ale'
 
@@ -101,6 +102,16 @@ set display=lastline
 " 補完候補の数
 set pumheight=10
 set guifont=SF\ Mono\ for\ Powerline
+" }}}
+
+" =================================================
+"  nathanaelkane/vim-indent-guides
+" =================================================
+" {{{
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=8
 " }}}
 
 " =================================================

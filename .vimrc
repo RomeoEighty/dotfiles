@@ -72,7 +72,7 @@ else
     "colorscheme jellybeans
     colorscheme nord
 endif
-if (v:version >= 704 && !has('nvim'))
+if (v:version >= 704 && has('cryptv'))
     set cryptmethod=blowfish2
 endif
 

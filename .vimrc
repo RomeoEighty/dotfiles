@@ -61,9 +61,10 @@ if version >= 704
     "End dein Scripts-------------------------
 endif
 
-"-------------------------------------------------
-"base setting
-"-------------------------------------------------
+" =================================================
+"  base setting
+" =================================================
+" {{{
 set nocompatible
 syntax on
 if has('gui_macvim')
@@ -75,10 +76,12 @@ endif
 if (v:version >= 704 && has('cryptv'))
     set cryptmethod=blowfish2
 endif
+" }}}
 
-"-------------------------------------------------
-" display
-"-------------------------------------------------
+" =================================================
+"  display
+" =================================================
+" {{{
 set number
 if v:version >= 703
     set relativenumber " This option may affect performance!
@@ -104,17 +107,19 @@ set display=lastline
 " 補完候補の数
 set pumheight=10
 set guifont=SF\ Mono\ for\ Powerline
+" }}}
 
-"-------------------------------------------------
-" edit
-"-------------------------------------------------
+" =================================================
+"  edit
+" =================================================
+" {{{
 set list
 set listchars=tab:>\ ,eol:$
 set tabstop=4
 set cinoptions+=:0,g0
 set autoindent
 set clipboard+=unnamed
-set clipboard=exclude:.*
+"set clipboard=exclude:.*
 set expandtab
 set smarttab
 
@@ -150,35 +155,38 @@ if has('mac')
     let g:python_host_prog = expand('/usr/local/bin/python2')
     let g:python3_host_prog = expand('/usr/local/bin/python3')
 endif
-"--------------
-" .swp setting
-"-------------
+" }}}
+
+" =================================================
+"  .swp setting
+" =================================================
 augroup swapchoice-readonly
     autocmd!
     autocmd SwapExists * let v:swapchoice = 'o'
 augroup END
 
-"-------------------------------------------------
-" search
-"-------------------------------------------------
+" =================================================
+"  search
+" =================================================
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 set wildignorecase
 
-"-------------------------------------------------
-" keymapping
-"-------------------------------------------------
+" =================================================
+"  keymapping
+" =================================================
 nnoremap j gj
 nnoremap k gk
 nnoremap <Down> gj
 nnoremap <Up> gk
 nnoremap <ESC><ESC> :noh<CR>
 
-"-------------------------------------------------
-" leghtline
-"-------------------------------------------------
+" =================================================
+"  lightline
+" =================================================
+" {{{
 if version >= 704
     let g:lightline = {
           \ 'colorscheme'       : 'nord',
@@ -283,6 +291,7 @@ if version >= 704
         return winwidth(0) > (10 + strlen(_fname)) ? &filetype : ''
     endfunction
 endif
+" }}}
 
 "-------------------------------------------------
 " denite.nvim
@@ -327,27 +336,27 @@ call denite#custom#source(
 let s:menus = {}
 
 let s:menus.zsh = {
-	\ 'description': 'Edit your import zsh configuration'
-	\ }
+    \ 'description': 'Edit your import zsh configuration'
+    \ }
 let s:menus.zsh.file_candidates = [
-	\ ['zshrc', '~/.config/zsh/.zshrc'],
-	\ ['zshenv', '~/.zshenv'],
-	\ ]
+    \ ['zshrc', '~/.config/zsh/.zshrc'],
+    \ ['zshenv', '~/.zshenv'],
+    \ ]
 
 let s:menus.my_commands = {
-	\ 'description': 'Example commands'
-	\ }
+    \ 'description': 'Example commands'
+    \ }
 let s:menus.my_commands.command_candidates = [
-	\ ['Split the window', 'vnew'],
-	\ ['Open zsh menu', 'Denite menu:zsh'],
-	\ ]
+    \ ['Split the window', 'vnew'],
+    \ ['Open zsh menu', 'Denite menu:zsh'],
+    \ ]
 
 call denite#custom#var('menu', 'menus', s:menus)
 
 " Ag command on grep source
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts',
-		\ ['-i', '--vimgrep'])
+        \ ['-i', '--vimgrep'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
@@ -356,8 +365,8 @@ call denite#custom#var('grep', 'final_opts', [])
 " Ack command on grep source
 call denite#custom#var('grep', 'command', ['ack'])
 call denite#custom#var('grep', 'default_opts',
-		\ ['--ackrc', $HOME.'/.ackrc', '-H',
-		\  '--nopager', '--nocolor', '--nogroup', '--column'])
+        \ ['--ackrc', $HOME.'/.ackrc', '-H',
+        \  '--nopager', '--nocolor', '--nogroup', '--column'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--match'])
 call denite#custom#var('grep', 'separator', ['--'])
@@ -366,7 +375,7 @@ call denite#custom#var('grep', 'final_opts', [])
 " Ripgrep command on grep source
 call denite#custom#var('grep', 'command', ['rg'])
 call denite#custom#var('grep', 'default_opts',
-		\ ['--vimgrep', '--no-heading'])
+        \ ['--vimgrep', '--no-heading'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
@@ -375,7 +384,7 @@ call denite#custom#var('grep', 'final_opts', [])
 " Pt command on grep source
 call denite#custom#var('grep', 'command', ['pt'])
 call denite#custom#var('grep', 'default_opts',
-		\ ['--nogroup', '--nocolor', '--smart-case'])
+        \ ['--nogroup', '--nocolor', '--smart-case'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])

@@ -36,7 +36,7 @@ Plug 'sjl/gundo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
-Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'keith/swift.vim', { 'for': 'swift' }
 Plug 'w0rp/ale'
 
@@ -50,6 +50,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'sjl/badwolf'
 Plug 'vim-scripts/Wombat'
 Plug 'zaki/zazen'
+Plug 'zchee/deoplete-jedi'
 
 " Initialize plugin system
 call plug#end()

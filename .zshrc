@@ -160,6 +160,13 @@ fi
 #fi
 
 echo -en "\nWelcome, Sir\n"
+echo -en '\n'
+echo -en '[Current terminal]:\n\t'
+who am I
+echo -en '\n'
+echo -en '[Zsh Version]:\n\t'
+echo $ZSH_VERSION
+echo -en '\n'
 
 
 

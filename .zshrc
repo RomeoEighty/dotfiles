@@ -159,7 +159,7 @@ fi
 #    echo -en "Source ~/.zshrc\n"
 #fi
 
-echo -en "\nWelcome, Sir\n"
+echo -en "\nWelcome back, Sir\n"
 echo -en '\n'
 echo -en '[Current terminal]:\n\t'
 who am I

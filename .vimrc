@@ -84,7 +84,7 @@ endif
 " {{{
 set number
 if v:version >= 703
-    set relativenumber " This option may affect performance!
+    set norelativenumber " This option may affect performance!
 endif
 set ruler
 set laststatus=2

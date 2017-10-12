@@ -52,7 +52,7 @@ setopt correct
 setopt mark_dirs
 setopt noautoremoveslash
 # 大文字小文字の区別
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z-_}={A-Za-z_-}'
 unsetopt promptcr
 setopt nobeep
 setopt auto_pushd

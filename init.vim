@@ -139,7 +139,11 @@ set listchars=tab:>\ ,eol:$
 set tabstop=4
 set cinoptions+=:0,g0
 set autoindent
-set clipboard+=unnamed
+if has('mac')
+    set clipboard+=unnamed
+elseif has('unix')
+    set clipboard+=unnamedplus
+endif
 set expandtab
 set smarttab
 set conceallevel=0

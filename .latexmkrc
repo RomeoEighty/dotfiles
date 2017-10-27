@@ -5,7 +5,8 @@ $bibtex           = 'pbibtex';
 $dvipdf           = 'dvipdfmx %O -o %D %S';
 $makeindex        = 'mendex %O -o %D %S';
 $max_repeat       = 5;
-$pdf_mode	  = 3; # generates pdf via dvipdfmx
+$pdf_mode         = 3; # generates pdf via dvipdfmx
+$cleanup_mode     = 2; # cleanup except for dvi, ps and pdf files
 
 # Prevent latexmk from removing PDF after typeset.
 # This enables Skim to chase the update in PDF automatically.

@@ -23,11 +23,13 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make'}
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'cocopon/colorswatch.vim'
 Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
+Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'kana/vim-operator-user'
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'lervag/vimtex', { 'for': ['tex'] }
+Plug 'nachumk/systemverilog.vim', { 'for': ['verilog', 'systemverilog'] }
 Plug 'osyo-manga/vim-marching'
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdtree'
@@ -38,6 +40,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'keith/swift.vim', { 'for': 'swift' }
+Plug 'vim-scripts/applescript.vim'
 Plug 'w0rp/ale'
 
 Plug 'severin-lemaignan/vim-minimap'
@@ -54,6 +57,19 @@ Plug 'zchee/deoplete-jedi'
 
 " Initialize plugin system
 call plug#end()
+" }}}
+
+" =================================================
+"  highlight setting
+" =================================================
+" highlight setting must be above the colorscheme setting
+" {{{
+" highlight inappropriate spaces
+augroup highlightFullwidthSpace
+    autocmd!
+    autocmd Colorscheme * highlight FullwidthSpace term=underline ctermbg=DarkRed guibg=DarkRed
+    autocmd VimEnter,WinEnter * match FullwidthSpace /\%u180E\|\%u2000\|\%u2001\|\%u2002\|\%u2003\|\%u2004\|\%u2005\|\%u2006\|\%u2007\|\%u2008\|\%u2009\|\%u200A\|\%u2028\|\%u2029\|\%u202F\|\%u205F\|\%u3000\|　/
+augroup END
 " }}}
 
 " =================================================
@@ -102,17 +118,16 @@ endif
 set display=lastline
 " 補完候補の数
 set pumheight=10
-"set guifont=SF\ Mono\ for\ Powerline
 " }}}
 
 " =================================================
 "  nathanaelkane/vim-indent-guides
 " =================================================
 " {{{
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=8
+" let g:indent_guides_enable_on_vim_startup = 1
+" let g:indent_guides_auto_colors = 0
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=0
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=8
 " }}}
 
 " =================================================
@@ -354,6 +369,7 @@ let g:deoplete#omni#input_patterns.tex =
             \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
             \  .')'
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
 " -------------------------------------------------
 "  tweekmonster/deoplete-clang2
 " -------------------------------------------------
@@ -394,6 +410,7 @@ let g:vimtex_compiler_latexmk = {
     \   ],
     \ }
 let g:vimtex_complete_enabled = 1
+let g:vimtex_fold_enabled = 1
 " }}}
 
 " =================================================
@@ -414,8 +431,8 @@ let g:neoinclude#ctags_command="/usr/local/bin/ctags"
     \ }
 "endif
 let g:neoinclude#patterns = {
-        \ 'c'   : '^\s*#\s*include\s',
-        \ 'cpp' : '^\s*#\s*include\s',
+        \ 'c'   : '^#\s*include\s',
+        \ 'cpp' : '^#\s*include\s',
     \ }
 if !exists('g:neoinclude#exts')
     let g:neoinclude#exts = {}
@@ -557,12 +574,12 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
  
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: "\<TAB>"
  
 " " For snippet_complete marker.
 " if has('conceal')
@@ -627,4 +644,12 @@ endif
 
 let g:neocomplete#force_omni_input_patterns.cpp =
     \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+" }}}
+
+" =================================================
+"  w0rp/ale
+" =================================================
+" {{{
+let g:ale_sign_error = '⨉'
+let g:ale_sign_warning = '⚠'
 " }}}

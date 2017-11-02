@@ -30,6 +30,7 @@ Plug 'kana/vim-operator-user'
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 Plug 'nachumk/systemverilog.vim', { 'for': ['verilog', 'systemverilog'] }
+"Plug 'vhda/verilog_systemverilog.vim', { 'for': ['verilog', 'systemverilog', 'verilog_systemverilog'] }
 Plug 'osyo-manga/vim-marching'
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/nerdtree'
@@ -146,7 +147,7 @@ elseif has('unix')
 endif
 set expandtab
 set smarttab
-set conceallevel=0
+"set conceallevel=0
 
 let _curfile=expand("%:r")
 if _curfile == 'Makefile'
@@ -444,6 +445,7 @@ endif
 let g:neoinclude#exts.c    = ['h']
 let g:neoinclude#exts.cpp  = ['', 'h', 'hpp', 'hxx']
 let g:neoinclude#exts.objc = ['', 'h', 'hpp', 'hxx']
+let g:neoinclude#exts.v    = ['', 'v']
 "let $CPP_STDLIB = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1'
 "augroup vimrc-set_filetype_cpp
 "    autocmd!
@@ -577,18 +579,27 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
  
-" SuperTab like snippets behavior.
-" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)"
-" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" SuperTab like snippets' behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" imap <expr><TAB>
+"  \ pumvisible() ? "\<C-n>" :
+"  \ neosnippet#expandable_or_jumpable() ?
+"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 " smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-" \ "\<Plug>(neosnippet_expand_or_jump)"
-" \: "\<TAB>"
- 
-" " For snippet_complete marker.
-" if has('conceal')
-"   set conceallevel=2 concealcursor=i
-" endif
+"  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" Enable snipMate compatibility feature.
+" let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Expand the completed snippet trigger by <CR>.
+imap <expr><CR>
+\ (pumvisible() && neosnippet#expandable()) ?
+\ "\<Plug>(neosnippet_expand)" : "\<CR>"
 " }}}
 
 " =================================================

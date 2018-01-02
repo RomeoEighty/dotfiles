@@ -46,6 +46,11 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias brsetup='brew update && brew upgrade && brew doctor 2>&1 | terminal-notifier -title "brew doctor" -group brew_doctor -appIcon https://brew.sh/img/homebrew-256x256.png -message'
     alias brcleanup='brew cleanup -n; brew cleanup; brew cask cleanup -n; brew doctor'
     alias brlist='brew list; printf "\n\n"; brew cask list'
+    # prevent .DS_Store file creation over network connections (10.13 - )
+    # https://support.apple.com/en-us/HT208209
+    # speed up SMB file browsing
+    alias disableDSStore='defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE; echo -en "Then log out of your macOS account and log back in."'
+    alias enableDSStore='defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool FALSE; echo -en "Then log out of your macOS account and log back in."'
     alias la='ls -AG'
     alias ls='ls -G'
     alias ll='ls -alG'

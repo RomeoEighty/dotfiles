@@ -33,12 +33,14 @@ Plug 'nachumk/systemverilog.vim', { 'for': ['verilog', 'systemverilog'] }
 "Plug 'vhda/verilog_systemverilog.vim', { 'for': ['verilog', 'systemverilog', 'verilog_systemverilog'] }
 Plug 'osyo-manga/vim-marching'
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdtree'
 " Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'keith/swift.vim', { 'for': 'swift' }
 Plug 'vim-scripts/applescript.vim'
@@ -241,15 +243,9 @@ if version >= 704
           \ 'active'            : {
           \     'left'              :  [ [ 'mvim', 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
-          \     'right'             :  [ [ 'syntastic', 'lineinfo' ],
+          \     'right'             :  [ [ 'lineinfo' ],
           \                              [ 'percent' ],
           \                              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-          \ },
-          \ 'component_expand'  : {
-          \     'syntastic'     : 'SyntasticStatuslineFlag'
-          \ },
-          \ 'component_type'    : {
-          \     'syntastic'         : 'error'
           \ },
           \ 'component_function': {
           \     'mvim'              : 'LightLineMacVim',
@@ -316,11 +312,7 @@ if version >= 704
 
     function! LightLineLineinfo()
         let _fname = expand("%:t")
-        if winwidth(0) > 80 + strlen(_fname)
-            return "\ue0a1 ". line('.'). '/'. line('$'). ':'. col('.'). '/'. col('$')
-        else
-            return "\ue0a1 ". line('.'). ':'. col('.')
-        endif
+        return "\ue0a1 ". line('.'). ':'. col('.')
     endfunction
 
     function! LightLineFileformat()
@@ -346,9 +338,10 @@ endif
 " {{{
 "set completeopt+=noinsert
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 0
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
 let g:deoplete#auto_complete_delay = 30
-"let g:deoplete#enable_refresh_always = 1
+"let g:deoplete#enable_refresh_always = 1 " Note: It increases the screen flicker.
 let g:deoplete#sources     = {}
 let g:deoplete#sources._   = ['buffer']
 let g:deoplete#sources.cpp = ['buffer', 'tag', 'file']
@@ -431,7 +424,7 @@ let g:vimtex_fold_enabled = 1
 let g:neoinclude#ctags_command="/usr/local/bin/ctags"
 "if has('mac')
     let g:neoinclude#paths = {
-        \ 'c'   : '.,./lib,./lib/STM32F10x_StdPeriph_Driver/inc,./lib/CMSIS/CM3/CoreSupport,./lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x,./inc,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include',
+        \ 'c'   : '.,./lib,./lib/STM32F10x_StdPeriph_Driver/inc,./lib/CMSIS/CM3/CoreSupport,./lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x,./inc,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include',
         \ 'cpp' : '.,/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1',
     \ }
 "endif
@@ -581,16 +574,17 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
  
 " SuperTab like snippets' behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-" imap <expr><TAB>
-"  \ pumvisible() ? "\<C-n>" :
-"  \ neosnippet#expandable_or_jumpable() ?
-"  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ neosnippet#expandable_or_jumpable() ?
+            \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+    set conceallevel=2
+    "set concealcursor=nv
 endif
 
 " Enable snipMate compatibility feature.
@@ -598,41 +592,8 @@ endif
 
 " Expand the completed snippet trigger by <CR>.
 imap <expr><CR>
-\ (pumvisible() && neosnippet#expandable()) ?
-\ "\<Plug>(neosnippet_expand)" : "\<CR>"
-" }}}
-
-" =================================================
-"  scrooloose/syntastic
-" =================================================
-" {{{
-if version >= 704
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_cpp_compiler_options = ' -std=c++11'
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-endif
-
-"-------------------------------------------------
-" For syntastic in lightline "
-"-------------------------------------------------
-if version >= 704
-    let g:syntastic_mode_map = { 'mode' : 'passive' }
-"   augroup AutoSyntastic
-"       autocmd!
-"       autocmd BufWritePost *.c,*.cpp call s:syntastic()
-"   augroup END
-
-    function! s:syntastic()
-        SyntasticCheck
-    call lightline#update()
-    endfunction
-endif
+            \ (pumvisible() && neosnippet#expandable()) ?
+            \ "\<Plug>(neosnippet_expand)" : "\<CR>"
 " }}}
 
 " =================================================
@@ -667,4 +628,6 @@ let g:neocomplete#force_omni_input_patterns.cpp =
 " {{{
 let g:ale_sign_error = '⨉'
 let g:ale_sign_warning = '⚠'
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:ale_linter_aliases = {'jsx': 'css'}
 " }}}

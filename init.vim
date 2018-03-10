@@ -33,7 +33,6 @@ Plug 'nachumk/systemverilog.vim', { 'for': ['verilog', 'systemverilog'] }
 "Plug 'vhda/verilog_systemverilog.vim', { 'for': ['verilog', 'systemverilog', 'verilog_systemverilog'] }
 Plug 'osyo-manga/vim-marching'
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdtree'
 " Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim'
@@ -47,6 +46,16 @@ Plug 'vim-scripts/applescript.vim'
 Plug 'w0rp/ale'
 
 Plug 'severin-lemaignan/vim-minimap'
+
+" javascript plugins
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+
+" typescript plugins
+Plug 'leafgarland/typescript-vim'
+
 " Colorscheme
 " note: make sure install appropriate nord theme to your terminal beforehand
 Plug 'arcticicestudio/nord-vim'
@@ -57,6 +66,7 @@ Plug 'sjl/badwolf'
 Plug 'vim-scripts/Wombat'
 Plug 'zaki/zazen'
 Plug 'zchee/deoplete-jedi'
+Plug 'maxmellon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] }
 
 " Initialize plugin system
 call plug#end()
@@ -188,6 +198,10 @@ elseif has('unix')
     let g:python_host_prog = expand('/usr/bin/python2')
     let g:python3_host_prog = expand('/usr/bin/python3')
 endif
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 " }}}
 
 " =================================================
@@ -330,6 +344,14 @@ if version >= 704
         return winwidth(0) > (70 + strlen(_fname)) ? &filetype : ''
     endfunction
 endif
+" }}}
+
+" =================================================
+"  scrooloose/nerdtree
+" =================================================
+" {{{
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 " }}}
 
 " =================================================
@@ -628,6 +650,11 @@ let g:neocomplete#force_omni_input_patterns.cpp =
 " {{{
 let g:ale_sign_error = '⨉'
 let g:ale_sign_warning = '⚠'
+" jsx
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
 let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
 let g:ale_linter_aliases = {'jsx': 'css'}
 " }}}

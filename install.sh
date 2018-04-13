@@ -18,6 +18,7 @@ do
 
     if [ "$f" = "init.vim" ]; then
         # echo "${SOURCEFILEABSPATH}" "${HOME}/.config/nvim/${f}"
+        mkdir -p "${HOME}/.config/nvim"
         ln -snfv "${SOURCEFILEABSPATH}" "${HOME}/.config/nvim/${f}"
         continue
     fi

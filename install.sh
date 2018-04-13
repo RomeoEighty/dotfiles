@@ -23,7 +23,7 @@ do
     fi
 
     #echo "${SOURCEFILEABSPATH}" "${HOME}/${f}"
-    ln -snfv "${f}" "${HOME}"/"${f}"
+    ln -snfv "${SOURCEFILEABSPATH}" "${HOME}"/"${f}"
 done
 
 # For debug, print all variables

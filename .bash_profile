@@ -32,6 +32,10 @@ export LIBRARY_PATH="/usr/local/lib:$LIBRARY_PATH"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 export CPATH="/usr/local/include:$CPATH"
 
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH=${PYENV_ROOT}/bin:$PATH
+eval "$(pyenv init -)"
+
 eval "$(rbenv init -)"
 
 
@@ -54,33 +58,36 @@ HISTIGNORE="history*::pwd*:exit:alias:ll:fg:ls"
 
 
 # git tab completion (homebrew)
-if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-    . `brew --prefix`/etc/bash_completion.d/git-completion.bash
-    echo -en "Source $(brew --prefix)/etc/bash_completion.d/git-completion.bash\n"
+if builtin command -v brew > /dev/null ; then
+    if [ -f $(brew --prefix)/etc/bash_completion.d/git-completion.bash ]; then
+        . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+        echo -en "Source $(brew --prefix)/etc/bash_completion.d/git-completion.bash\n"
+    fi
+
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        . $(brew --prefix)/etc/bash_completion
+        echo -en "Source $(brew --prefix)/etc/bash_completion\n"
+    fi
 fi
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-    echo -en "Source $(brew --prefix)/etc/bash_completion\n"
+# private values
+if [[ -f $(dirname $(readlink ${HOME}/.bash_profile))/private/privateval ]] ; then
+    . $(dirname $(readlink ${HOME}/.bash_profile))/private/privateval
 fi
 
 if [[ -f ~/.aliases ]] ; then
     . ~/.aliases
-    echo -en "Source ~/.aliases\n"
+    echo "Source ~/.aliases"
 fi
 if [[ -f ~/.bashrc ]] ; then
     . ~/.bashrc
-    echo -en "Source ~/.bashrc\n"
+    echo "Source ~/.bashrc"
 fi
 
-echo -en '\n'
-
-if [ -x "`which who`" ]; then
+if builtin command -v who > /dev/null ; then
     who -H
 fi
-# if [ -x "`which w`" ]; then
-#     w
-# fi
+
 echo -en '\n'
 echo -en '[Current terminal]:\n\t'
 who am I
@@ -88,9 +95,6 @@ echo -en '\n'
 echo -en '[Bash Version]:\n\t'
 echo $BASH_VERSION
 echo -en '\n'
-if [ -x "`which fortune`" ]; then
-    fortune
-fi
 # if [ "$(uname)" == 'Darwin' ]; then
 #     say --voice=samantha --rate=320 --audio-device=Built-in "Hello sir!"
 # fi

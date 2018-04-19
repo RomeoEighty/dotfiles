@@ -26,7 +26,6 @@ export LANG=en_US.UTF-8
 
 export TERM=xterm-256color
 export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$PATH:$HOME/.robotech/bin:$HOME/bin"
 
 export LIBRARY_PATH="/usr/local/lib:$LIBRARY_PATH"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
@@ -40,12 +39,12 @@ eval "$(rbenv init -)"
 
 
 # -------------------------------------------------------
-# histroy option
+# histroy configuration
 # -------------------------------------------------------
 function share_history {        # append multiple sessions history simultaniously
-        history -a              # append history lines from this session to the history file
-        history -c              # clear the history list by deleting all of the entries
-        history -r              # read the history file and append the contents to the history list
+    history -a                  # append history lines from this session to the history file
+    history -c                  # clear the history list by deleting all of the entries
+    history -r                  # read the history file and append the contents to the history list
 }
 PROMPT_COMMAND='share_history'  # execute function
 shopt -u histappend             # disable appending history (function above done automatically)
@@ -55,6 +54,7 @@ HISTCONTROL=ignoreboth          # ignoreboth = ignorespace+ignoredups
 
 HISTTIMEFORMAT=`echo -e "\033[38;5;28m%d/%m/%y %T\033[0m "`
 HISTIGNORE="history*::pwd*:exit:alias:ll:fg:ls"
+# =======================================================
 
 
 # git tab completion (homebrew)
@@ -71,8 +71,14 @@ if builtin command -v brew > /dev/null ; then
 fi
 
 # private values
-if [[ -f $(dirname $(readlink ${HOME}/.bash_profile))/private/privateval ]] ; then
-    . $(dirname $(readlink ${HOME}/.bash_profile))/private/privateval
+if [ "$(uname)" == 'Darwin' ]; then
+    if [[ -f $(dirname $(readlink ${HOME}/.bash_profile))/private/privateval ]] ; then
+        . $(dirname $(readlink ${HOME}/.bash_profile))/private/privateval
+    fi
+else
+    if [[ -f $(dirname $(readlink -f ${HOME}/.bash_profile))/private/privateval ]] ; then
+        . $(dirname $(readlink ${HOME}/.bash_profile))/private/privateval
+    fi
 fi
 
 if [[ -f ~/.aliases ]] ; then

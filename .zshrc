@@ -3,9 +3,15 @@ export PATH=/usr/local/bin:$PATH
 autoload -Uz colors
 
 # --------------------------------------
+# rbenv
+# --------------------------------------
+# Load rbenv automatically by appending
+# the following to ~/.zshrc:
+
+eval "$(rbenv init -)"
+
 # --------------------------------------
 # zsh-completions Caveats
-# --------------------------------------
 # --------------------------------------
 # To activate these completions, add the following to your .zshrc:
 # 
@@ -21,7 +27,6 @@ autoload -Uz colors
 #   chmod go-w '/usr/local/share'
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-
 # setopt correct
 # setopt correct_all
 
@@ -30,9 +35,7 @@ setopt nonomatch
 
 
 # --------------------------------------
-# --------------------------------------
 # COMPLETION SETTING
-# --------------------------------------
 # --------------------------------------
 #- -U also causes alias expansion to be suppressed when the function is loaded., -z:load zsh-style
 autoload -Uz compinit
@@ -64,9 +67,7 @@ setopt auto_cd
 setopt interactive_comments
 
 # --------------------------------------
-# --------------------------------------
 # HISTORY SETTING
-# --------------------------------------
 # --------------------------------------
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -115,9 +116,7 @@ bindkey "^N" history-beginning-search-forward-end
 bindkey "^[[Z" reverse-menu-complete
 
 # --------------------------------------
-# --------------------------------------
 # BINDKEYS SETTING
-# --------------------------------------
 # --------------------------------------
 EDITOR=vim
 bindkey -e
@@ -129,9 +128,7 @@ bindkey -M menuselect 'k' vi-up-line-ro-history
 bindkey -M menuselect 'l' vi-forward-char
 
 # --------------------------------------
-# --------------------------------------
 # PROMPT SETTING
-# --------------------------------------
 # --------------------------------------
 # export PATH=/usr/local/bin:$PATH
 setopt PROMPT_SUBST
@@ -175,9 +172,7 @@ autoload run-help
 HELPDIR=/usr/local/share/zsh/help
 
 # --------------------------------------
-# --------------------------------------
 # zsh alias
-# --------------------------------------
 # --------------------------------------
 disable r
 alias help='run-help'
@@ -189,10 +184,8 @@ alias vibprofile='vim ~/.bash_profile'
 alias viinputrc='vim ~/.inputrc'
 
 # --------------------------------------
-# --------------------------------------
 # vcs_info setting
 # -> more info : http://qiita.com/mollifier/items/8d5a627d773758dd8078
-# --------------------------------------
 # --------------------------------------
 
 RPROMPT=""
@@ -374,3 +367,4 @@ add-zsh-hook precmd _update_vcs_info_msg
 # --------------------------------------
 # END vcs_info setting
 # --------------------------------------
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh

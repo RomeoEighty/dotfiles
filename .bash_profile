@@ -1,7 +1,14 @@
+export LANGUAGE="en_US.UTF-8"
+export LANG="${LANGUAGE}"
+export LC_ALL="${LANGUAGE}"
+export LC_CTYPE="${LANGUAGE}"
+
 # -------------------------------------------------------
 # color variables
 # -------------------------------------------------------
 # default macOS terminal (Bash 3.2) does not support "\e"
+export TERM=xterm-256color
+
 red='\[\033[1;31m\]'
 green='\[\033[0;32m\]'
 blue='\[\033[1;34m\]'
@@ -16,15 +23,11 @@ color_reset='\[\033[0'
 # -------------------------------------------------------
 if [ $(id -u) -eq 0 ];
 then
-    export PS1="\n${dark_grey}\# \033[0m\e[5;40;91m\] \u ${color_reset}${green} [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
+    export PS1="\n${dark_grey}\# \033[0m\e[5;40;91m\]\u${color_reset} ${green} [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
 else
     export PS1="\n${dark_grey}\#${green} \u [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
 fi
 
-export LC_ALL=en_US.UTF-8  
-export LANG=en_US.UTF-8
-
-export TERM=xterm-256color
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 export LIBRARY_PATH="/usr/local/lib:$LIBRARY_PATH"
@@ -36,6 +39,8 @@ export PATH=${PYENV_ROOT}/bin:$PATH
 eval "$(pyenv init -)"
 
 eval "$(rbenv init -)"
+
+eval "$(opam config env)"
 
 
 # -------------------------------------------------------

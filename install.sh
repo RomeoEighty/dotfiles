@@ -14,7 +14,7 @@ do
     || [[ ${f} = *.swp ]] \
     || [[ ${f} = README.md ]] && continue
 
-    SOURCEFILEABSPATH=${SCRIPTDIRABSPATH}/${f}
+    local SOURCEFILEABSPATH=${SCRIPTDIRABSPATH}/${f}
 
     if [ "$f" = "init.vim" ]; then
         # echo "${SOURCEFILEABSPATH}" "${HOME}/.config/nvim/${f}"

@@ -43,6 +43,7 @@ Plug 'tpope/vim-surround'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'keith/swift.vim', { 'for': 'swift' }
 Plug 'vim-scripts/applescript.vim'
+Plug 'vim-utils/vim-man'
 Plug 'vimwiki/vimwiki'
 Plug 'w0rp/ale'
 

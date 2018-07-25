@@ -43,6 +43,7 @@ Plug 'tpope/vim-surround'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'keith/swift.vim', { 'for': 'swift' }
 Plug 'vim-scripts/applescript.vim'
+Plug 'vimwiki/vimwiki'
 Plug 'w0rp/ale'
 
 Plug 'severin-lemaignan/vim-minimap'
@@ -52,6 +53,7 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'kchmck/vim-coffee-script'
 
 " typescript plugins
 Plug 'leafgarland/typescript-vim'
@@ -152,6 +154,7 @@ set listchars=tab:>\ ,eol:$
 set tabstop=4
 set cinoptions+=:0,g0
 set autoindent
+" this clipboard setting changes visual yank and paste behaviors
 if has('mac')
     set clipboard+=unnamed
 elseif has('unix')

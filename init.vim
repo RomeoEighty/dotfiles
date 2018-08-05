@@ -29,6 +29,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'kana/vim-operator-user'
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'lervag/vimtex', { 'for': ['tex'] }
+Plug 'luochen1990/rainbow'
 Plug 'nachumk/systemverilog.vim', { 'for': ['verilog', 'systemverilog'] }
 "Plug 'vhda/verilog_systemverilog.vim', { 'for': ['verilog', 'systemverilog', 'verilog_systemverilog'] }
 Plug 'osyo-manga/vim-marching'
@@ -425,17 +426,23 @@ let g:vimtex_compiler_latexmk = {
     \ 'build_dir'  : '',
     \ 'callback'   : 1,
     \ 'continuous' : 1,
-    \ 'options'    : [
-    \      '-pdfdvi',
-    \      '-verbose',
-    \      '-interaction=nonstopmode',
-    \      '-synctex=1',
-    \      '-file-line-error',
-    \   ],
+    \ 'options': [
+    \    '-pdfdvi', 
+    \    '-verbose',
+    \    '-file-line-error',
+    \    '-synctex=1',
+    \    '-interaction=nonstopmode',
+    \],
     \ }
 let g:vimtex_complete_enabled = 1
 let g:vimtex_fold_enabled = 1
+let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
 " }}}
+
+" =================================================
+"  luochen1990/rainbow
+" =================================================
+let g:rainbow_active = 1
 
 " =================================================
 "  Shougo/neoinclude.vim

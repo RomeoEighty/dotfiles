@@ -12,9 +12,10 @@ do
     || [[ ${f} = *DS_Store* ]] \
     || [[ ${f} = private ]] \
     || [[ ${f} = *.swp ]] \
+    || [[ ${f} = install.sh ]] \
     || [[ ${f} = README.md ]] && continue
 
-    local SOURCEFILEABSPATH=${SCRIPTDIRABSPATH}/${f}
+    SOURCEFILEABSPATH=${SCRIPTDIRABSPATH}/${f}
 
     if [ "$f" = "init.vim" ]; then
         # echo "${SOURCEFILEABSPATH}" "${HOME}/.config/nvim/${f}"

@@ -54,12 +54,31 @@ color_reset='\[\033[0'
 #         echo "\[\e[4;40;32m\]\$1\[\e[0m\]"
 #     fi
 # }
+
+osname=$(uname)
+case "$osname" in
+    "Linux" )
+        displayosnamecolor=${blue}
+        ;;
+    "Darwin" )
+        displayosnamecolor='\[\033[38;5;88m\'
+        ;;
+    ? )
+        displayosnamecolor=${dark_grey}
+        ;;
+esac
+
+# -------------------------------------------------------
+# prompt color
+# -------------------------------------------------------
 if [ $(id -u) -eq 0 ];
 then
-    export PS1="\n${dark_grey}\# \033[0m\e[5;40;91m\] \u ${color_reset}${green} [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
+    export PS1="\n${dark_grey}\# \033[0m\e[5;40;91m\]\u${color_reset} ${green} [${displayosnamecolor}$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
 else
-    export PS1="\n${dark_grey}\#${green} \u [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
+    export PS1="\n${dark_grey}\#${green} \u [${displayosnamecolor}$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
 fi
+echo $PS1
+
 # ------------------
 # bash
 # ------------------

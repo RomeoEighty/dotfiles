@@ -3,30 +3,7 @@ export LANG="${LANGUAGE}"
 export LC_ALL="${LANGUAGE}"
 export LC_CTYPE="${LANGUAGE}"
 
-# -------------------------------------------------------
-# color variables
-# -------------------------------------------------------
-# default macOS terminal (Bash 3.2) does not support "\e"
 export TERM=xterm-256color
-
-red='\[\033[1;31m\]'
-green='\[\033[0;32m\]'
-blue='\[\033[1;34m\]'
-light_grey='\[\033[1;37m\]'
-dark_grey='\[\033[1;90m\]'
-GREEN='\[\033[0;92m\]'
-color_reset='\[\033[0'
-
-
-# -------------------------------------------------------
-# prompt color
-# -------------------------------------------------------
-if [ $(id -u) -eq 0 ];
-then
-    export PS1="\n${dark_grey}\# \033[0m\e[5;40;91m\]\u${color_reset} ${green} [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
-else
-    export PS1="\n${dark_grey}\#${green} \u [\[\033[38;5;88m\]$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
-fi
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 

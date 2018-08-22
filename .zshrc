@@ -136,7 +136,19 @@ setopt PROMPT_SUBST
 function precmd {
     echo -en "\n"
 }
-PROMPT=$'%{\e[1;90m%}%!%{\e[0;32m%} %n [%{\e[38;5;88m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+
+osname=$(uname)
+case ${osname} in
+    "Linux" )
+        PROMPT=$'%{\e[1;90m%}%!%{\e[0;32m%} %n [%{\e[38;5;006m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+        ;;
+    "Darwin" )
+        PROMPT=$'%{\e[1;90m%}%!%{\e[0;32m%} %n [%{\e[38;5;088m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+        ;;
+    ? )
+        PROMPT=$'%{\e[1;90m%}%!%{\e[0;32m%} %n [%{\e[38;5;015m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+        ;;
+esac
 
 ## Update prompt every second -> too fancy
 #TMOUT=1

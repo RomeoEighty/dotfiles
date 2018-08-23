@@ -132,21 +132,24 @@ bindkey -M menuselect 'l' vi-forward-char
 # --------------------------------------
 # export PATH=/usr/local/bin:$PATH
 setopt PROMPT_SUBST
+export TERM="xterm-256color"
 # bash: \n\[\e[1;90m\]\#\[\e[0;32m\] \u [\[\e[38;5;88m\]Darwin 15.5.0\[\e[0;32m\]] \[\e[38;5;68m\]\w\e[m\n\t \[\e[4;40;32m\]$?\[\e[0m\] \[\e[38;5;22m\]$ \[\033[0m\]
 function precmd {
     echo -en "\n"
 }
 
 osname=$(uname)
+green=$'%{\e[0;32m%}'
+historyeventnumcolor=$'%{\e[1;90m%}'
 case ${osname} in
     "Linux" )
-        PROMPT=$'%{\e[1;90m%}%!%{\e[38;5;025m%} %n [%{\e[38;5;006m%}$(uname -sr)%{\e[38;5;025m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;36m%}%?%{\e[0m%} %{\e[38;5;25m%}%# %{\e[0m%}%'
+        PROMPT=$'${historyeventnumcolor}%!%{\e[38;5;025m%} %n [%{\e[38;5;006m%}$(uname -sr)%{\e[38;5;025m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;36m%}%?%{\e[0m%} %{\e[38;5;25m%}%# %{\e[0m%}%'
         ;;
     "Darwin" )
-        PROMPT=$'%{\e[1;90m%}%!%{\e[0;32m%} %n [%{\e[38;5;088m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+        PROMPT=$'${historyeventnumcolor}%!$green %n [%{\e[38;5;088m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
         ;;
     ? )
-        PROMPT=$'%{\e[1;90m%}%!%{\e[0;32m%} %n [%{\e[38;5;015m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+        PROMPT=$'${historyeventnumcolor}%!%{\e[0;32m%} %n [%{\e[38;5;015m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
         ;;
 esac
 

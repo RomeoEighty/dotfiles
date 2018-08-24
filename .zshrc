@@ -142,8 +142,8 @@ osname=$(uname)
 case ${osname} in
     "Linux" )
         promptcolor_historyeventnum=$'%{\e[1;90m%}'
-        promptcolor_os=$'%{\e[38;5;025m%}'
-        promptcolor_username=$'%{\e[38;5;006m%}'
+        promptcolor_os=$'%{\e[38;5;006m%}'
+        promptcolor_username=$'%{\e[38;5;025m%}'
         promptcolor_pwd=$'%{\e[38;5;68m%}'
         promptcolor_status=$'%{\e[4;36m%}'
         promptcolor_shellprivilege=$'%{\e[38;5;25m%}'

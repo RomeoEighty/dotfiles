@@ -77,7 +77,6 @@ then
 else
     export PS1="\n${dark_grey}\#${green} \u [${displayosnamecolor}$(uname -sr)${green}] \[\033[38;5;68m\]\w\033[m\n\t \[\033[4;40;32m\]\$?\[\033[0m\] \[\033[38;5;22m\]$ \[\033[0m\]"
 fi
-echo $PS1
 
 # ------------------
 # bash

@@ -139,19 +139,33 @@ function precmd {
 }
 
 osname=$(uname)
-green=$'%{\e[0;32m%}'
-historyeventnumcolor=$'%{\e[1;90m%}'
 case ${osname} in
     "Linux" )
-        PROMPT=$'${historyeventnumcolor}%!%{\e[38;5;025m%} %n [%{\e[38;5;006m%}$(uname -sr)%{\e[38;5;025m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;36m%}%?%{\e[0m%} %{\e[38;5;25m%}%# %{\e[0m%}%'
+        promptcolor_historyeventnum=$'%{\e[1;90m%}'
+        promptcolor_os=$'%{\e[38;5;025m%}'
+        promptcolor_username=$'%{\e[38;5;006m%}'
+        promptcolor_pwd=$'%{\e[38;5;68m%}'
+        promptcolor_status=$'%{\e[4;36m%}'
+        promptcolor_shellprivilege=$'%{\e[38;5;25m%}'
         ;;
     "Darwin" )
-        PROMPT=$'${historyeventnumcolor}%!$green %n [%{\e[38;5;088m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+        promptcolor_historyeventnum=$'%{\e[1;90m%}'
+        promptcolor_os=$'%{\e[38;5;088m%}'
+        promptcolor_username=$'%{\e[0;32m%}'
+        promptcolor_pwd=$'%{\e[38;5;68m%}'
+        promptcolor_status=$'%{\e[4;40;32m%}'
+        promptcolor_shellprivilege=$'%{\e[38;5;22m%}'
         ;;
     ? )
-        PROMPT=$'${historyeventnumcolor}%!%{\e[0;32m%} %n [%{\e[38;5;015m%}$(uname -sr)%{\e[0;32m%}] %{\e[38;5;68m%}%~%{\e[m%}\n%* %{\e[4;40;32m%}%?%{\e[0m%} %{\e[38;5;22m%}%# %{\e[0m%}%'
+        promptcolor_historyeventnum=$'%{\e[1;90m%}'
+        promptcolor_os=$'%{\e[38;5;015m%}'
+        promptcolor_username=$'%{\e[0;32m%}'
+        promptcolor_pwd=$'%{\e[38;5;68m%}'
+        promptcolor_status=$'%{\e[4;40;32m%}'
+        promptcolor_shellprivilege=$'%{\e[38;5;22m%}'
         ;;
 esac
+PROMPT=$'${promptcolor_historyeventnum}%! ${promptcolor_username}%n [${promptcolor_os}$(uname -sr)${promptcolor_username}] ${promptcolor_pwd}%~%{\e[m%}\n%* ${promptcolor_status}%?%{\e[0m%} ${promptcolor_shellprivilege}%# %{\e[0m%}%'
 
 ## Update prompt every second -> too fancy
 #TMOUT=1

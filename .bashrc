@@ -61,7 +61,7 @@ case "$osname" in
         displayosnamecolor=${blue}
         ;;
     "Darwin" )
-        displayosnamecolor='\[\033[38;5;88m\'
+        displayosnamecolor='\[\033[38;5;88m'
         ;;
     ? )
         displayosnamecolor=${dark_grey}

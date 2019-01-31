@@ -22,6 +22,7 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'cocopon/colorswatch.vim'
+Plug 'cocopon/iceberg.vim'
 Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
 Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
@@ -164,7 +165,6 @@ elseif has('unix')
 endif
 set expandtab
 set smarttab
-"set conceallevel=0
 
 let _curfile=expand("%:r")
 if _curfile == 'Makefile'
@@ -258,7 +258,7 @@ endif
 " {{{
 if version >= 704
     let g:lightline = {
-          \ 'colorscheme'       : 'nord',
+          \ 'colorscheme'       : 'iceberg',
           \ 'active'            : {
           \     'left'              :  [ [ 'mvim', 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -437,6 +437,9 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_complete_enabled = 1
 let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
+let g:vimtex_quickfix_latexlog = {
+    \ 'font' : 0,
+    \ }
 " }}}
 
 " =================================================
@@ -616,7 +619,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 " For conceal markers.
 if has('conceal')
-    set conceallevel=2
+    set conceallevel=0
     "set concealcursor=nv
 endif
 

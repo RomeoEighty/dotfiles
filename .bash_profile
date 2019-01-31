@@ -13,6 +13,7 @@ export CPATH="/usr/local/include:$CPATH"
 
 export PYENV_ROOT="${HOME}/.pyenv"
 export PATH=${PYENV_ROOT}/bin:$PATH
+export PYTHONPATH=$(python -c "import site, os; print(os.path.join(site.USER_BASE, 'lib', 'python', 'site-packages'))"):$PYTHONPATH
 eval "$(pyenv init -)"
 
 eval "$(rbenv init -)"
@@ -50,6 +51,8 @@ if builtin command -v brew > /dev/null ; then
         . $(brew --prefix)/etc/bash_completion
         echo -en "Source $(brew --prefix)/etc/bash_completion\n"
     fi
+
+    export HOMEBREW_INSTALL_CLEANUP=1
 fi
 
 # private values

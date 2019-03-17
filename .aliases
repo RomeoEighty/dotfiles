@@ -43,7 +43,7 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias brew-update-force='cd $(brew --repo); git fetch; git reset --hard origin/master; brew update'
     # now you can use "brew update --force"
     #alias brsetup='echo -rn "TODO github-keygen"; brew update && brew upgrade && brew doctor 2>&1 1>/dev/null | awk "BEGIN{wcnt = 0; ecnt = 0} /Warning/ {++wcnt} /Error/ {++ecnt} END{print Warning:, wcnt, Error:, ecnt}" | terminal-notifier -title "brew doctor" -message'
-    alias brsetup='brew update && brew upgrade && brew doctor 2>&1 | terminal-notifier -title "brew doctor" -group brew_doctor -appIcon https://brew.sh/assets/img/homebrew-256x256.png -message'
+    alias brsetup='brew update && brew upgrade --fetch-HEAD && brew doctor 2>&1 | terminal-notifier -title "brew doctor" -group brew_doctor -appIcon https://brew.sh/assets/img/homebrew-256x256.png -message'
     alias brcleanup='brew cleanup -n; brew cleanup; brew cask cleanup -n; brew doctor'
     alias brlist='brew list; printf "\n\n"; brew cask list'
     # prevent .DS_Store file creation over network connections (10.13 - )

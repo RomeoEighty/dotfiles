@@ -1,4 +1,5 @@
-export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH
+export MANPAGER='nvim +Man!'
 # Colorize
 autoload -Uz colors
 
@@ -99,12 +100,10 @@ zshaddhistory() {
 
     [[  ${cmd} != (man)
         #&& ${cmd} != (l[sal])
-        && ${cmd} != (history)
         && ${cmd} != (pwd)
         && ${cmd} != (exit)
         && ${cmd} != (alias)
         && ${cmd} != (fg)
-        && ${cmd} != (rm)
     ]]
 }
 
@@ -130,9 +129,8 @@ bindkey -M menuselect 'l' vi-forward-char
 # --------------------------------------
 # PROMPT SETTING
 # --------------------------------------
-# export PATH=/usr/local/bin:$PATH
 setopt PROMPT_SUBST
-export TERM="xterm-256color"
+#export TERM="xterm-256color"
 # bash: \n\[\e[1;90m\]\#\[\e[0;32m\] \u [\[\e[38;5;88m\]Darwin 15.5.0\[\e[0;32m\]] \[\e[38;5;68m\]\w\e[m\n\t \[\e[4;40;32m\]$?\[\e[0m\] \[\e[38;5;22m\]$ \[\033[0m\]
 function precmd {
     echo -en "\n"

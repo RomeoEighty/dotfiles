@@ -14,8 +14,10 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+"Plug 'Shougo/neosnippet.vim'
+"Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+    \ | Plug 'honza/vim-snippets'
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 "Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
@@ -25,6 +27,7 @@ Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 " Edit
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
+Plug 'tomtom/tcomment_vim'
 
 " View
 "Plug 'nathanaelkane/vim-indent-guides'
@@ -64,6 +67,7 @@ Plug 'airblade/vim-gitgutter'
 
 " html preview
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
+let g:instant_markdown_autostart = 0
 
 " Swift
 Plug 'keith/swift.vim', { 'for': 'swift' }
@@ -126,6 +130,9 @@ set tabstop=4
 set showmatch
 set matchtime=1
 set nocursorline
+
+set wildoptions=pum
+set pumblend=20
 
 " search
 set hlsearch
@@ -303,6 +310,8 @@ if version >= 704
 endif
 
 " 'lervag/vimtex'
+set conceallevel=1
+let g:tex_conceal='abdmg'
 let g:vimtex_enabled = 1
 let g:vimtex_compiler_enabled = 1
 if has('mac')
@@ -331,6 +340,7 @@ let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
 let g:vimtex_quickfix_latexlog = {
     \ 'font' : 0,
     \ }
+let g:vimtex_compiler_progname = 'nvr'
 
 " 'w0rp/ale'
 let g:ale_sign_error = '⨉'

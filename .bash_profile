@@ -11,14 +11,13 @@ export LIBRARY_PATH="/usr/local/lib:$LIBRARY_PATH"
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
 export CPATH="/usr/local/include:$CPATH"
 
-export PYENV_ROOT="${HOME}/.pyenv"
-export PATH=${PYENV_ROOT}/bin:$PATH
-export PYTHONPATH=$(python -c "import site, os; print(os.path.join(site.USER_BASE, 'lib', 'python', 'site-packages'))"):$PYTHONPATH
-eval "$(pyenv init -)"
+if builtin command -v rbenv > /dev/null ; then
+    eval "$(rbenv init -)"
+fi
 
-eval "$(rbenv init -)"
-
-eval "$(opam config env)"
+if builtin command -v opem > /dev/null ; then
+    eval "$(opam config env)"
+fi
 
 
 # -------------------------------------------------------

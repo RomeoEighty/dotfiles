@@ -20,6 +20,7 @@ Plug 'SirVer/ultisnips'
     \ | Plug 'honza/vim-snippets'
 Plug 'lervag/vimtex', { 'for': ['tex'] }
 Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
 "Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 "Plug 'Shougo/deoplete-clangx', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 "Plug 'osyo-manga/vim-marching', { 'for': ['cpp'] }
@@ -215,6 +216,14 @@ let g:deoplete#omni#input_patterns.tex =
             \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
             \  .')'
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" 'SirVer/ultisnips' ------------------------
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsEditSplit = 'context'
+set rtp+=~/.config/nvim
+let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
 
 " 'luochen1990/rainbow' ------------------------
 let g:rainbow_active = 1

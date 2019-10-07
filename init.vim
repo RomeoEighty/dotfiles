@@ -3,9 +3,27 @@ if has('mac')
     set spelllang=en_us
 endif
 
+" install vim-plug
+if !exists('g:plug_path')
+    let g:plug_path = expand('$HOME/.local/share/nvim/plugged')
+endif
+
+let s:vimplug_path = expand('$HOME/.local/share/nvim/site/autoload/plug.vim')
+
+if !filereadable(s:vimplug_path)
+    if !executable("curl")
+        echoerr "You have to install curl or first install vim-plug yourself!"
+        execute "q!"
+    endif
+    echo "Installing Vim-Plug..."
+    echo ""
+    silent exec "!\curl -fLo " . s:vimplug_path . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    autocmd VimEnter * PlugInstall --sync
+endif
+
 " vim-plug ------------------------
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin(g:plug_path)
 
 "NOTE: Make sure you use single quotes
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -135,6 +153,11 @@ set nocursorline
 set wildoptions=pum
 set pumblend=20
 
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 " search
 set hlsearch
 set incsearch

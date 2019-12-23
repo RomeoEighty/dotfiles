@@ -37,10 +37,10 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'SirVer/ultisnips'
     \ | Plug 'honza/vim-snippets'
 Plug 'lervag/vimtex', { 'for': ['tex'] }
-Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+"Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 "Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
-"Plug 'Shougo/deoplete-clangx', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
+Plug 'Shougo/deoplete-clangx', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
 "Plug 'osyo-manga/vim-marching', { 'for': ['cpp'] }
 
 " Edit
@@ -61,10 +61,12 @@ Plug 'godlygeek/tabular'
 Plug 'w0rp/ale'
 "Plug 'scrooloose/syntastic'
 
-" Color Scheme
+" Colorscheme
 Plug 'cocopon/colorswatch.vim'
 Plug 'cocopon/iceberg.vim'
+Plug 'AlessandroYorba/Sierra'
 Plug 'arcticicestudio/nord-vim'
+Plug 'joshdick/onedark.vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'vim-scripts/darktango.vim'
 Plug 'w0ng/vim-hybrid'
@@ -86,6 +88,7 @@ Plug 'airblade/vim-gitgutter'
 
 " html preview
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
+Plug 'iamcco/markdown-preview.nvim',{ 'do': 'cd app & yarn install'  }
 let g:instant_markdown_autostart = 0
 
 " Swift
@@ -109,6 +112,9 @@ Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
+set exrc
+set secure
+
 " auto commands
 " make sure that this augroup places before colorscheme setting.
 augroup highlightFullwidthSpace
@@ -128,7 +134,7 @@ augroup END
 if has('gui_macvim')
     colorscheme darktango
 else
-    colorscheme nord
+    colorscheme Sierra
 endif
 set number
 set ruler
@@ -258,7 +264,7 @@ autocmd FileType swift imap <buffer> <C-k> <Plug>(autocomplete_swift_jump_to_pla
 " 'itchyny/lightline.vim' ------------------------
 if version >= 704
     let g:lightline = {
-          \ 'colorscheme'       : 'iceberg',
+          \ 'colorscheme'       : 'nord',
           \ 'active'            : {
           \     'left'              :  [ [ 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],

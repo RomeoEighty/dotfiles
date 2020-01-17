@@ -88,7 +88,7 @@ Plug 'airblade/vim-gitgutter'
 
 " html preview
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
-Plug 'iamcco/markdown-preview.nvim',{ 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 let g:instant_markdown_autostart = 0
 
 " Swift
@@ -105,6 +105,10 @@ Plug 'maxmellon/vim-jsx-pretty', { 'for': ['javascript', 'javascript.jsx'] }
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
+
+" ctags
+Plug 'majutsushi/tagbar'
+" Plug 'ludovicchabant/vim-gutentags'
 
 " man
 "Plug 'vim-utils/vim-man'
@@ -282,8 +286,8 @@ if version >= 704
           \     'fileencoding'      : 'LightLineFileencoding',
           \     'filetype'          : 'LightLineFiletype'
           \ },
-          \ 'separator'         : { 'left': "\ue0b0", 'right': "\ue0b2" },
-          \ 'subseparator'      : { 'left': "\ue0b1", 'right': "\ue0b3" }
+          \ 'separator'         : { 'left': "", 'right': "" },
+          \ 'subseparator'      : { 'left': "", 'right': "" }
           \ }
 
     function! LightLineMode()

@@ -1,23 +1,30 @@
-BasedOnStyle: LLVM
 
 Standard: Cpp11
 
-ColumnLimit: 0
+# Format Style Options
+# BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AlignAfterOpenBracket: false
+AlignConsecutiveAssignments: false
+AlignEscapedNewlines: false
+AlignEscapedNewlines: DontAlign
+AlignOperands: false
+AlignTrailingComments: true
 IndentWidth: 4
+# ColumnLimit: 0
 UseTab: Never
 MaxEmptyLinesToKeep: 2
 
 BreakBeforeBinaryOperators: true
 BreakBeforeBraces: Linux
 SpaceBeforeParens: ControlStatements
-AlwaysBreakTemplateDeclarations: true
+AlwaysBreakTemplateDeclarations: No
+AlwaysBreakAfterReturnType: None
 
-AlignAfterOpenBracket: false
 AlignEscapedNewlinesLeft: true
 
 PointerBindsToType: true
 
-AccessModifierOffset: -4
 
 AllowShortFunctionsOnASingleLine: All
 

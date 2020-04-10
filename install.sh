@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # get a relative path of this script
 SCRIPTDIRABSPATH=$(cd $(dirname $0) && pwd)

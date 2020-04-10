@@ -70,6 +70,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'vim-scripts/darktango.vim'
 Plug 'w0ng/vim-hybrid'
+Plug 'rakr/vim-one'
 Plug 'sjl/badwolf'
 Plug 'vim-scripts/Wombat'
 Plug 'zaki/zazen'
@@ -89,7 +90,7 @@ Plug 'airblade/vim-gitgutter'
 " html preview
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-let g:instant_markdown_autostart = 0
+let g:instant_markdown_autostart = 1
 
 " Swift
 Plug 'keith/swift.vim', { 'for': 'swift' }
@@ -136,9 +137,11 @@ augroup END
 " base setting
 " view
 if has('gui_macvim')
-    colorscheme darktango
+    colorscheme one
+    set background=dark
 else
-    colorscheme Sierra
+    colorscheme one
+    set background=dark
 endif
 set number
 set ruler
@@ -268,7 +271,7 @@ autocmd FileType swift imap <buffer> <C-k> <Plug>(autocomplete_swift_jump_to_pla
 " 'itchyny/lightline.vim' ------------------------
 if version >= 704
     let g:lightline = {
-          \ 'colorscheme'       : 'nord',
+          \ 'colorscheme'       : 'one',
           \ 'active'            : {
           \     'left'              :  [ [ 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],

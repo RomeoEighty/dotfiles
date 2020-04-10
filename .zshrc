@@ -3,6 +3,11 @@ export MANPAGER='nvim +Man!'
 # Colorize
 autoload -Uz colors
 
+if [ -t 0 ]; then
+    # Disable START/STOP output controls.
+    stty -ixon
+fi
+
 # --------------------------------------
 # rbenv
 # --------------------------------------

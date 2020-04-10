@@ -3,6 +3,9 @@
 # get a relative path of this script
 SCRIPTDIRABSPATH=$(cd $(dirname $0) && pwd)
 
+printf "If you want to set the machine specific settings that are not supposed to be uploaded, create a script named 'privateval' in 'private' directory.\n"
+printf ".bash_profile and .zprofile will load 'privateval'."
+
 for f in {.??*,*}
 do
     # exclude files

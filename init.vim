@@ -140,7 +140,7 @@ if has('gui_macvim')
     colorscheme one
     set background=dark
 else
-    colorscheme one
+    colorscheme jellybeans
     set background=dark
 endif
 set number
@@ -239,18 +239,27 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
 " 'Shougo/deoplete' ------------------------
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#auto_complete_delay = 30
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.tex =
-            \   '\\(?:'
-            \  .   '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
-            \  .  '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
-            \  .  '|hyperref\s*\[[^]]*'
-            \  .  '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-            \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
-            \  .')'
+"let g:deoplete#enable_ignore_case = 1
+"let g:deoplete#enable_smart_case = 1
+"let g:deoplete#auto_complete_delay = 3
+"let g:deoplete#omni#input_patterns = {}
+"let g:deoplete#omni#input_patterns.tex =
+"            \   '\\(?:'
+"            \  .   '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+"            \  .  '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
+"            \  .  '|hyperref\s*\[[^]]*'
+"            \  .  '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+"            \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
+"            \  .')'
+call deoplete#custom#option({
+            \ 'auto_complete_delay': 3,
+            \ 'ignore_case': v:true,
+            \ 'smart_case': v:true,
+            \ })
+call deoplete#custom#var('omni', 'input_patterns', {
+            \ 'tex': g:vimtex#re#deoplete
+            \})
+
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " 'SirVer/ultisnips' ------------------------

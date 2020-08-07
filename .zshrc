@@ -103,9 +103,9 @@ zshaddhistory() {
     local line=${1%%$'\n'}
     local cmd=${line%% *}
 
-    [[  ${cmd} != (man)
+    [[  ${cmd} != (pwd)
         #&& ${cmd} != (l[sal])
-        && ${cmd} != (pwd)
+        #&& ${cmd} != (man)
         && ${cmd} != (exit)
         && ${cmd} != (alias)
         && ${cmd} != (fg)

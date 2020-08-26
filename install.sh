@@ -24,6 +24,7 @@ do
         # echo "${SOURCEFILEABSPATH}" "${HOME}/.config/nvim/${f}"
         mkdir -p "${HOME}/.config/nvim"
         ln -snfv "${SOURCEFILEABSPATH}" "${HOME}/.config/nvim/${f}"
+        ln -snfv "${SOURCEFILEABSPATH}" "${HOME}/.vimrc"
         continue
     fi
 

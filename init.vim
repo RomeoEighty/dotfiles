@@ -1,3 +1,7 @@
+if !has('nvim')
+    set nocompatible
+endif
+
 if has('mac')
     silent exec 'language en_US'
     set spelllang=en_us
@@ -5,10 +9,18 @@ endif
 
 " install vim-plug
 if !exists('g:plug_path')
-    let g:plug_path = expand('$HOME/.local/share/nvim/plugged')
+    if has('nvim')
+        let g:plug_path = expand('$HOME/.local/share/nvim/plugged')
+    else
+        let g:plug_path = expand('$HOME/.vim/plugged')
+    endif
 endif
 
-let s:vimplug_path = expand('$HOME/.local/share/nvim/site/autoload/plug.vim')
+if has('nvim')
+    let s:vimplug_path = expand('$HOME/.local/share/nvim/site/autoload/plug.vim')
+else
+    let s:vimplug_path = expand('$HOME/.vim/autoload/plug.vim')
+endif
 
 if !filereadable(s:vimplug_path)
     if !executable("curl")
@@ -51,6 +63,7 @@ Plug 'tomtom/tcomment_vim'
 " View
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'itchyny/vim-cursorword'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " Formatter
 Plug 'kana/vim-operator-user'
@@ -136,6 +149,13 @@ augroup END
 
 " base setting
 " view
+
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+
 if has('gui_macvim')
     colorscheme one
     set background=dark
@@ -143,6 +163,7 @@ else
     colorscheme jellybeans
     set background=dark
 endif
+
 set number
 set ruler
 set laststatus=2
@@ -163,8 +184,11 @@ set showmatch
 set matchtime=1
 set nocursorline
 
-set wildoptions=pum
-set pumblend=20
+if has('nvim')
+    set inccommand=split
+    set wildoptions=pum
+    set pumblend=20
+endif
 
 augroup fileTypeIndent
     autocmd!
@@ -177,7 +201,6 @@ set incsearch
 set ignorecase
 set smartcase
 set wildignorecase
-set inccommand=split
 
 " edit
 scriptencoding utf-8

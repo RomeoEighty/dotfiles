@@ -42,6 +42,11 @@ Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 
 " Completion
+if !has('nvim')
+    " deoplete requires these plugins for vim8
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neoinclude.vim'
 "Plug 'Shougo/neosnippet.vim'
@@ -164,6 +169,7 @@ else
     set background=dark
 endif
 
+set conceallevel=1
 set number
 set ruler
 set laststatus=2
@@ -262,9 +268,6 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
 " 'Shougo/deoplete' ------------------------
 let g:deoplete#enable_at_startup = 1
-"let g:deoplete#enable_ignore_case = 1
-"let g:deoplete#enable_smart_case = 1
-"let g:deoplete#auto_complete_delay = 3
 "let g:deoplete#omni#input_patterns = {}
 "let g:deoplete#omni#input_patterns.tex =
 "            \   '\\(?:'
@@ -279,7 +282,7 @@ call deoplete#custom#option({
             \ 'ignore_case': v:true,
             \ 'smart_case': v:true,
             \ })
-call deoplete#custom#var('omni', 'input_patterns', {
+autocmd User vimtex call deoplete#custom#var('omni', 'input_patterns', {
             \ 'tex': g:vimtex#re#deoplete
             \})
 
@@ -387,7 +390,7 @@ if version >= 704
 endif
 
 " 'lervag/vimtex'
-set conceallevel=1
+let g:tex_flavor='latex'
 let g:tex_conceal='abdmg'
 let g:vimtex_enabled = 1
 let g:vimtex_compiler_enabled = 1
@@ -414,9 +417,9 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_complete_enabled = 1
 let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
-let g:vimtex_quickfix_latexlog = {
-    \ 'font' : 0,
-    \ }
+"let g:vimtex_quickfix_latexlog = {
+"    \ 'font' : 0,
+"    \ }
 let g:vimtex_compiler_progname = 'nvr'
 
 " 'w0rp/ale'

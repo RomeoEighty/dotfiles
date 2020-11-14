@@ -111,18 +111,17 @@ zshaddhistory() {
     ]]
 }
 
+# --------------------------------------
+# BINDKEYS SETTING
+# --------------------------------------
+export EDITOR='nvim' # This setting change bindkey to vim-style. So, bindkey -e is put after this line.
+bindkey -e
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 bindkey "^[[Z" reverse-menu-complete
-
-# --------------------------------------
-# BINDKEYS SETTING
-# --------------------------------------
-EDITOR=vim
-bindkey -e
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-charhi

@@ -67,24 +67,27 @@ Plug 'tomtom/tcomment_vim'
 
 " View
 "Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'itchyny/vim-cursorword'
+Plug 'itchyny/vim-cursorword'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " Formatter
 Plug 'kana/vim-operator-user'
     \ | Plug 'rhysd/vim-clang-format', { 'for': ['c', 'cpp', 'objc', 'java'] }
 Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
 
 " linter
 Plug 'w0rp/ale'
 "Plug 'scrooloose/syntastic'
 
 " Colorscheme
+Plug 'altercation/vim-colors-solarized'
 Plug 'cocopon/colorswatch.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'AlessandroYorba/Sierra'
 Plug 'arcticicestudio/nord-vim'
 Plug 'joshdick/onedark.vim'
+Plug 'lifepillar/vim-solarized8'
 Plug 'nanotech/jellybeans.vim'
 Plug 'vim-scripts/darktango.vim'
 Plug 'w0ng/vim-hybrid'
@@ -106,9 +109,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " html preview
+
+" install server: npm -g install instant-markdown-d
 Plug 'suan/vim-instant-markdown', { 'for': ['markdown'] }
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-let g:instant_markdown_autostart = 1
+let g:instant_markdown_mathjax = 1
+
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+"let g:instant_markdown_autostart = 1
 
 " Swift
 Plug 'keith/swift.vim', { 'for': 'swift' }
@@ -161,12 +168,11 @@ if exists('+termguicolors')
     set termguicolors
 endif
 
+set background=dark
 if has('gui_macvim')
     colorscheme one
-    set background=dark
 else
-    colorscheme jellybeans
-    set background=dark
+    colorscheme solarized8
 endif
 
 set conceallevel=1
@@ -191,7 +197,7 @@ set matchtime=1
 set nocursorline
 
 if has('nvim')
-    set inccommand=split
+    "set inccommand=split
     set wildoptions=pum
     set pumblend=20
 endif
@@ -207,6 +213,12 @@ set incsearch
 set ignorecase
 set smartcase
 set wildignorecase
+
+" quote technique from 'https://stackoverflow.com/a/4257175'
+" search word under cursor but not jump next
+nnoremap * *``
+" not modify jump list by the previous command
+nnoremap * :keepjumps normal! mi*`i<CR>
 
 " edit
 scriptencoding utf-8
@@ -306,7 +318,7 @@ autocmd FileType swift imap <buffer> <C-k> <Plug>(autocomplete_swift_jump_to_pla
 " 'itchyny/lightline.vim' ------------------------
 if version >= 704
     let g:lightline = {
-          \ 'colorscheme'       : 'one',
+          \ 'colorscheme'       : 'solarized',
           \ 'active'            : {
           \     'left'              :  [ [ 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -350,7 +362,8 @@ if version >= 704
         if &filetype == "help"
             return "\ue0a2"
         elseif &readonly
-            return "\ue0a2"
+            "return "\ue0a2"
+            return "\U001003a0"
         else
             return ""
         endif
@@ -425,3 +438,6 @@ let g:vimtex_compiler_progname = 'nvr'
 " 'w0rp/ale'
 let g:ale_sign_error = '⨉'
 let g:ale_sign_warning = '⚠'
+
+let g:markdown_folding = 1
+let g:markdown_enable_folding = 1

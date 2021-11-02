@@ -7,6 +7,8 @@ if has('mac')
     set spelllang=en_us
 endif
 
+set hidden
+
 " install vim-plug
 if !exists('g:plug_path')
     if has('nvim')
@@ -33,32 +35,36 @@ if !filereadable(s:vimplug_path)
     autocmd VimEnter * PlugInstall --sync
 endif
 
+" disable all LSP features in ALE, so ALE doesn't try to provide LSP features already provided by coc.nvim, such as auto-completion.
+let g:ale_disable_lsp = 1
+
 " vim-plug ------------------------
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin(g:plug_path)
 
 "NOTE: Make sure you use single quotes
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/vimproc.vim', { 'do': 'make'}
+"  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+"  Plug 'Shougo/vimproc.vim', { 'do': 'make'}
 
 " Completion
-if !has('nvim')
-    " deoplete requires these plugins for vim8
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neoinclude.vim'
-"Plug 'Shougo/neosnippet.vim'
-"Plug 'Shougo/neosnippet-snippets'
-Plug 'SirVer/ultisnips'
-    \ | Plug 'honza/vim-snippets'
-Plug 'lervag/vimtex', { 'for': ['tex'] }
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
-"Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
-"Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
-Plug 'Shougo/deoplete-clangx', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
-"Plug 'osyo-manga/vim-marching', { 'for': ['cpp'] }
+"  if !has('nvim')
+"      " deoplete requires these plugins for vim8
+"      Plug 'roxma/nvim-yarp'
+"      Plug 'roxma/vim-hug-neovim-rpc'
+"  endif
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"  Plug 'Shougo/neoinclude.vim'
+"  "Plug 'Shougo/neosnippet.vim'
+"  "Plug 'Shougo/neosnippet-snippets'
+"  Plug 'SirVer/ultisnips'
+"      \ | Plug 'honza/vim-snippets'
+"  Plug 'lervag/vimtex', { 'for': ['tex'] }
+"  Plug 'deoplete-plugins/deoplete-jedi', { 'for': ['python'] }
+"  "Plug 'tweekmonster/deoplete-clang2', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
+"  "Plug 'justmao945/vim-clang', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
+"  Plug 'Shougo/deoplete-clangx', { 'for': ['c', 'cpp', 'objc', 'cmake'] }
+"  "Plug 'osyo-manga/vim-marching', { 'for': ['cpp'] }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Edit
 Plug 'terryma/vim-multiple-cursors'
@@ -119,7 +125,7 @@ let g:instant_markdown_mathjax = 1
 
 " Swift
 Plug 'keith/swift.vim', { 'for': 'swift' }
-Plug 'landaire/deoplete-swift', { 'for': 'swift' }
+"  Plug 'landaire/deoplete-swift', { 'for': 'swift' }
 
 " JavaScript
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
@@ -175,6 +181,7 @@ else
     colorscheme solarized8
 endif
 
+set updatetime=300 " default value is 4000(=4s)
 set conceallevel=1
 set number
 set ruler
@@ -228,6 +235,7 @@ set fileencodings=utf-8,ucs-bom,iso-20220jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,
 set fileformats=unix,dos,mac
 set shiftwidth=4
 set cinoptions+=:0,g0
+set hidden
 set expandtab
 set backspace=2 " equals :set backspace=indent,eol,start
 set smartindent
@@ -279,26 +287,64 @@ endif
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
 " 'Shougo/deoplete' ------------------------
-let g:deoplete#enable_at_startup = 1
-"let g:deoplete#omni#input_patterns = {}
-"let g:deoplete#omni#input_patterns.tex =
-"            \   '\\(?:'
-"            \  .   '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
-"            \  .  '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
-"            \  .  '|hyperref\s*\[[^]]*'
-"            \  .  '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-"            \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
-"            \  .')'
-call deoplete#custom#option({
-            \ 'auto_complete_delay': 3,
-            \ 'ignore_case': v:true,
-            \ 'smart_case': v:true,
-            \ })
-autocmd User vimtex call deoplete#custom#var('omni', 'input_patterns', {
-            \ 'tex': g:vimtex#re#deoplete
-            \})
+"  let g:deoplete#enable_at_startup = 1
+"  "let g:deoplete#omni#input_patterns = {}
+"  "let g:deoplete#omni#input_patterns.tex =
+"  "            \   '\\(?:'
+"  "            \  .   '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+"  "            \  .  '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
+"  "            \  .  '|hyperref\s*\[[^]]*'
+"  "            \  .  '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+"  "            \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
+"  "            \  .')'
+"  call deoplete#custom#option({
+"              \ 'auto_complete_delay': 3,
+"              \ 'ignore_case': v:true,
+"              \ 'smart_case': v:true,
+"              \ })
+"  autocmd User vimtex call deoplete#custom#var('omni', 'input_patterns', {
+"              \ 'tex': g:vimtex#re#deoplete
+"              \})
 
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" 'neoclide/coc.nvim' ------------------------
+"  Use tab for trigger completion with characters ahead and navigate.
+"  Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+"  inoremap <silent><expr> <TAB>
+"        \ pumvisible() ? "\<C-n>" :
+"        \ <SID>check_back_space() ? "\<TAB>" :
+"        \ coc#refresh()
+"  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"  Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+"  Coc only does snippet and additional edit on confirm.
+"  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+"  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" NOTE: The settings of CocList are not configured because I have not checked
+" its functionalities yet.
 
 " 'SirVer/ultisnips' ------------------------
 let g:UltiSnipsExpandTrigger = '<tab>'
@@ -311,9 +357,9 @@ let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
 " 'luochen1990/rainbow' ------------------------
 let g:rainbow_active = 1
 
-" 'landaire/deoplete-swift' ------------------------
-let g:deoplete#sources#swift#daemon_autostart = 1
-autocmd FileType swift imap <buffer> <C-k> <Plug>(autocomplete_swift_jump_to_placeholder)
+"  " 'landaire/deoplete-swift' ------------------------
+"  let g:deoplete#sources#swift#daemon_autostart = 1
+"  autocmd FileType swift imap <buffer> <C-k> <Plug>(autocomplete_swift_jump_to_placeholder)
 
 " 'itchyny/lightline.vim' ------------------------
 if version >= 704

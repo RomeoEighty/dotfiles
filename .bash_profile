@@ -7,9 +7,18 @@ export TERM=xterm-256color
 
 export PATH="${HOME}/.rbenv/bin:${PATH}"
 
-export LIBRARY_PATH="/usr/local/lib:${LIBRARY_PATH}"
-export LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
-export CPATH="/usr/local/include:${CPATH}"
+# check homebrew install directory
+if [ -x /opt/homebrew/bin/brew ]; then
+    #echo 'brew executable: /opt/homebrew/bin/brew'
+    HOMEBREW_PREFIX=$(/opt/homebrew/bin/brew --prefix)
+elif [ -x /usr/local/bin/brew ]; then
+    #echo 'brew executable: /usr/local/bin/brew'
+    HOMEBREW_PREFIX=$(/usr/local/bin/brew --prefix)
+fi
+
+export LIBRARY_PATH="${HOMEBREW_PREFIX}/lib:${LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${HOMEBREW_PREFIX}/lib:${LD_LIBRARY_PATH}"
+export CPATH="${HOMEBREW_PREFIX}/include:${CPATH}"
 
 if builtin command -v rbenv > /dev/null ; then
     eval "$(rbenv init -)"

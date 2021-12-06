@@ -1,4 +1,6 @@
-export PATH=/usr/local/sbin:/usr/local/bin:$PATH
+if [ ! -z "${HOMEBREW_PREFIX}" ]; then
+    export PATH=${HOMEBREW_PREFIX}/sbin:${HOMEBREW_PREFIX}/bin:$PATH
+fi
 export MANPAGER='nvim +Man!'
 # Colorize
 autoload -Uz colors
@@ -16,22 +18,6 @@ fi
 
 eval "$(rbenv init -)"
 
-# --------------------------------------
-# zsh-completions Caveats
-# --------------------------------------
-# To activate these completions, add the following to your .zshrc:
-# 
-#   fpath=(/usr/local/share/zsh-completions $fpath)
-# 
-# You may also need to force rebuild `zcompdump`:
-# 
-#   rm -f ~/.zcompdump; compinit
-# 
-# Additionally, if you receive "zsh compinit: insecure directories" warnings when attempting
-# to load these completions, you may need to run this:
-# 
-#   chmod go-w '/usr/local/share'
-fpath=(/usr/local/share/zsh-completions $fpath)
 
 # setopt correct
 # setopt correct_all
@@ -199,7 +185,9 @@ echo -en '\n'
 
 unalias run-help
 autoload run-help
-HELPDIR=/usr/local/share/zsh/help
+if [ ! -z "${HOMEBREW_PREFIX}" ]; then
+    HELPDIR=${HOMEBREW_PREFIX}/share/zsh/help
+fi
 
 # --------------------------------------
 # zsh alias
@@ -397,4 +385,27 @@ add-zsh-hook precmd _update_vcs_info_msg
 # --------------------------------------
 # END vcs_info setting
 # --------------------------------------
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# --------------------------------------
+# zsh-completions Caveats
+# --------------------------------------
+# To activate these completions, add the following to your .zshrc:
+if [ ! -z "${HOMEBREW_PREFIX}" ] && type brew &>/dev/null; then
+    fpath=(${HOMEBREW_PREFIX}/share/zsh-completions $fpath)
+    autoload -Uz compinit
+    compinit
+fi
+# You may also need to force rebuild `zcompdump`:
+#
+#   rm -f ~/.zcompdump; compinit
+#
+# Additionally, if you receive "zsh compinit: insecure directories" warnings when attempting
+# to load these completions, you may need to run this:
+#
+#   chmod go-w ${HOMEBREW_PREFIX}'/share'
+# --------------------------------------
+# zsh-completions Caveats END
+# --------------------------------------
+if [ ! -z "${HOMEBREW_PREFIX}" ]; then
+    source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi

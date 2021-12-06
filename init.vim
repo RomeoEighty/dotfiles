@@ -274,12 +274,11 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " python path
-if has('mac')
-    let g:python_host_prog = expand('/usr/local/bin/python2')
-    let g:python3_host_prog = expand('/usr/local/bin/python3')
-elseif has('unix')
-    let g:python_host_prog = expand('/usr/bin/python2')
-    let g:python3_host_prog = expand('/usr/bin/python3')
+if executable('python3')
+    let g:python3_host_prog = system('which python3 | tr -d "\r\n"')
+endif
+if executable('python2')
+    let g:python_host_prog = system('which python2 | tr -d "\r\n"')
 endif
 
 " custom commands

@@ -2,7 +2,6 @@ if [ -x /opt/homebrew/bin/brew ]; then
     #echo 'brew executable: /opt/homebrew/bin/brew'
     eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [ -x /usr/local/bin/brew ]; then
-    echo 'brew executable: /usr/local/bin/brew'
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 ## HOMEBREW_PREFIX=/opt/homebrew

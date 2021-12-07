@@ -408,4 +408,6 @@ fi
 # --------------------------------------
 if [ ! -z "${HOMEBREW_PREFIX}" ]; then
     source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # https://github.com/zsh-users/zsh-autosuggestions/issues/619#issuecomment-904193190
+    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
 fi

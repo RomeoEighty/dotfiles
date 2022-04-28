@@ -100,6 +100,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'rakr/vim-one'
 Plug 'sjl/badwolf'
 Plug 'vim-scripts/Wombat'
+Plug 'whatyouhide/vim-gotham'
 Plug 'zaki/zazen'
 " 
 Plug 'luochen1990/rainbow'
@@ -178,7 +179,8 @@ set background=dark
 if has('gui_macvim')
     colorscheme one
 else
-    colorscheme solarized8
+    "colorscheme solarized8
+    colorscheme gotham
 endif
 
 set updatetime=300 " default value is 4000(=4s)
@@ -256,10 +258,10 @@ endif
 " swap, backup, 
 set nobackup
 set swapfile
-augroup swapchoice-readonly
-    autocmd!
-    autocmd SwapExists * let v:swapchoice = 'o'
-augroup END
+"augroup swapchoice-readonly
+"    autocmd!
+"    autocmd SwapExists * let v:swapchoice = 'o'
+"augroup END
 "':set directory=.' will cause problem.
 
 " keymappting
@@ -363,7 +365,7 @@ let g:rainbow_active = 1
 " 'itchyny/lightline.vim' ------------------------
 if version >= 704
     let g:lightline = {
-          \ 'colorscheme'       : 'solarized',
+          \ 'colorscheme'       : 'gotham',
           \ 'active'            : {
           \     'left'              :  [ [ 'mode', 'paste' ],
           \                              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],

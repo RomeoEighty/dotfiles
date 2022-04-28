@@ -61,7 +61,7 @@ setopt interactive_comments
 # HISTORY SETTING
 # --------------------------------------
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
+HISTSIZE=5000000
 SAVEHIST=5000000
 
 #-zsh sessions will append their history list to the history  le, rather than replace it.

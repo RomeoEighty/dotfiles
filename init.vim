@@ -147,6 +147,9 @@ Plug 'majutsushi/tagbar'
 "Plug 'vim-utils/vim-man'
 "Plug 'nhooyr/neoman.vim'
 
+" box
+Plug 'gyim/vim-boxdraw'
+
 call plug#end()
 
 set exrc

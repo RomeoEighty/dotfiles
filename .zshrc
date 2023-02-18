@@ -1,6 +1,10 @@
-if [ ! -z "${HOMEBREW_PREFIX}" ]; then
-    export PATH=${HOMEBREW_PREFIX}/sbin:${HOMEBREW_PREFIX}/bin:$PATH
-fi
+#if [ ! -z "${HOMEBREW_PREFIX}" ]; then
+#    export PATH=${HOMEBREW_PREFIX}/sbin:${HOMEBREW_PREFIX}/bin:$PATH
+#    #if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ]; then
+#    #    export PATH=$PATH:${HOMEBREW_PREFIX}/opt/llvm/bin
+#    #fi
+#fi
+export TMUX_SHELL=$(command -v zsh | tr -d '\r\n')
 export MANPAGER='nvim +Man!'
 # Colorize
 autoload -Uz colors
@@ -39,6 +43,7 @@ setopt auto_menu
 setopt list_types
 setopt auto_param_keys
 setopt auto_param_slash
+setopt globdots # show hidden files
 zstyle ':completion:*:default' menu select=2
 export ZLS_COLORS=$LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
@@ -385,6 +390,8 @@ add-zsh-hook precmd _update_vcs_info_msg
 # --------------------------------------
 # END vcs_info setting
 # --------------------------------------
+
+#
 
 # --------------------------------------
 # zsh-completions Caveats

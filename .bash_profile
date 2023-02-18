@@ -3,7 +3,11 @@ export LANG="${LANGUAGE}"
 export LC_ALL="${LANGUAGE}"
 export LC_CTYPE="${LANGUAGE}"
 
-export TERM=xterm-256color
+#export TERM=xterm-256color
+# Do not set TERM environment variable in dotfiles.
+# This variable is supposed to be set by terminal emulator (Terminal.app, iTerm.app, etc.)
+# https://paulgessinger.com/posts/2020/full-gui-colors-in-iterm-tmux-and-vim/
+# export TERM='xterm-256color'
 
 export PATH="${HOME}/.rbenv/bin:${PATH}"
 
@@ -15,10 +19,16 @@ elif [ -x /usr/local/bin/brew ]; then
     #echo 'brew executable: /usr/local/bin/brew'
     HOMEBREW_PREFIX=$(/usr/local/bin/brew --prefix)
 fi
+export TMUX_SHELL=$(command -v zsh | tr -d '\r\n')
 
-export LIBRARY_PATH="${HOMEBREW_PREFIX}/lib:${LIBRARY_PATH}"
-export LD_LIBRARY_PATH="${HOMEBREW_PREFIX}/lib:${LD_LIBRARY_PATH}"
-export CPATH="${HOMEBREW_PREFIX}/include:${CPATH}"
+if [ ! -z "${HOMEBREW_PREFIX}" ]; then
+    export LIBRARY_PATH="${HOMEBREW_PREFIX}/lib:${LIBRARY_PATH}"
+    export LD_LIBRARY_PATH="${HOMEBREW_PREFIX}/lib:${LD_LIBRARY_PATH}"
+    export CPATH="${HOMEBREW_PREFIX}/include:${CPATH}"
+    if [ -d "${HOMEBREW_PREFIX}/opt/llvm/bin" ]; then
+        export PATH=$PATH:${HOMEBREW_PREFIX}/opt/llvm/bin
+    fi
+fi
 
 if builtin command -v rbenv > /dev/null ; then
     eval "$(rbenv init -)"

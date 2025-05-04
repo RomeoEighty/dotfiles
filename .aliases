@@ -55,10 +55,83 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     alias la='ls -AG'
     alias ls='ls -G'
     alias ll='ls -alG'
-    alias op='open'
     alias watch='watch '
 
     alias bdav='rsync -v -a --iconv=UTF8-MAC,UTF-8 /Volumes/dav/lecture/2nd_winter ~/Google\ Drive/eeic/dav_lec_1013/'
+
+    copy-file-attr()
+    {
+        copy-file-attr-usage() {
+            printf "usage: copy-file-attr [-v] [-h] [-m | -d] <source_file> <target_file>\n"
+            printf "\n"
+            printf "   -h   show this help\n"
+            printf "   -m   copy file modified date\n"
+            printf "   -d   copy file created date\n"
+        }
+
+        local OPTIND f_modified f_created
+        f_modified=false
+        f_created=false
+        while getopts "md" o
+        do
+            case "$o" in
+                m)
+                    f_modified=true
+                    ;;
+                d)
+                    f_created=true
+                    ;;
+                *)
+                    copy-file-attr-usage
+                    return
+                    ;;
+            esac
+        done
+        shift $((OPTIND - 1))
+        local source_file target_file
+        source_file="$1"
+        target_file="$2"
+        if [[ "$#" != 2 ]]
+        then
+            printf "ERROR: source file and target file need to be specified\n"
+            return
+        fi
+        if ! test -f "$source_file" && ! test -d "$source_file"
+        then
+            printf "ERROR: %s is not a regular file nor directory.\n" "$source_file"
+            return
+        fi
+        if ! test -f "$target_file" && ! test -d "$target_file"
+        then
+            printf "ERROR: %s is not a regular file nor directory.\n" "$target_file"
+            return
+        fi
+        if [[ "$f_created" != true && "$f_modified" != true ]]
+        then
+            printf "ERROR: Either -m or -d needs to be specified\n"
+            return
+        fi
+        printf "source_file: %s\n" "$source_file"
+        printf "target_file: %s\n" "$target_file"
+        if [[ "$f_modified" == true ]]
+        then
+            local source_file_modified target_file_modified
+            source_file_modified=$(GetFileInfo -m "$source_file")
+            target_file_modified=$(GetFileInfo -m "$target_file")
+            printf "%s modified date: \n" "$target_file"
+            printf "    %s -> %s\n" "$target_file_modified" "$source_file_modified"
+            SetFile -m "$source_file_modified" "$target_file"
+        fi
+        if [[ "$f_created" == true ]]
+        then
+            local source_file_created target_file_created
+            source_file_created=$(GetFileInfo -d "$source_file")
+            target_file_created=$(GetFileInfo -d "$target_file")
+            printf "%s created date: \n" "$target_file"
+            printf "    %s -> %s\n" "$target_file_created" "$source_file_created"
+            SetFile -d "$source_file_created" "$target_file"
+        fi
+    }
 fi
 if [[ "$(uname)" == 'Linux' ]]; then
     alias la='ls -a --color'

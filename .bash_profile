@@ -9,7 +9,19 @@ export LC_CTYPE="${LANGUAGE}"
 # https://paulgessinger.com/posts/2020/full-gui-colors-in-iterm-tmux-and-vim/
 # export TERM='xterm-256color'
 
-export PATH="${HOME}/.rbenv/bin:${PATH}"
+if [ -d "${HOME}/.rbenv/bin" ]; then
+    PATH="${HOME}/.rbenv/bin:${PATH}"
+fi
+if [ -d "${HOME}/.local/bin" ]; then
+    PATH="${HOME}/.local/bin:${PATH}"
+fi
+if [ -d "${HOME}/Library/Python" ]; then
+    while IFS= read -r dir
+    do
+        PATH="${dir}:${PATH}"
+    done < <(find "${HOME}/Library/Python" -type d -name bin 2> /dev/null | sort -Vr)
+fi
+export PATH
 
 # check homebrew install directory
 if [ -x /opt/homebrew/bin/brew ]; then

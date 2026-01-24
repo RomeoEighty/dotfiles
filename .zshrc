@@ -425,3 +425,17 @@ fi
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
+
+# --------------------------------------
+# History expansion helpers
+# --------------------------------------
+# Require confirmation before executing expanded history commands
+# This shows the expanded command and allows editing before execution
+setopt HIST_VERIFY
+# Enable history expansion on space (magic-space)
+#  !!   : expand to the entire previous command
+#  !$   : expand to the last argument of the previous command
+#  !^   : expand to the first argument of the previous command
+#  !:n  : expand to the nth argument of the previous command
+#  !str : expand to the most recent command starting with "str"
+bindkey ' ' magic-space

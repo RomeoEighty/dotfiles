@@ -433,9 +433,16 @@ bindkey '^x^e' edit-command-line
 # This shows the expanded command and allows editing before execution
 setopt HIST_VERIFY
 # Enable history expansion on space (magic-space)
-#  !!   : expand to the entire previous command
-#  !$   : expand to the last argument of the previous command
-#  !^   : expand to the first argument of the previous command
-#  !:n  : expand to the nth argument of the previous command
-#  !str : expand to the most recent command starting with "str"
+#  !!      : previous command
+#  !$      : last argument
+#  !^      : first argument
+#  !*      : all arguments
+#  !:n     : nth argument
+#  !:m-n   : argument range
+#  !-n     : nth previous command
+#  !str    : most recent command starting with "str"
+#  !?str?  : most recent command containing "str"
+#  :h/:t   : dirname / basename
+#  :r/:e   : remove extension / extension only
+#  ^o^n^   : substitute in previous command
 bindkey ' ' magic-space
